@@ -1,0 +1,64 @@
+{% extends '/base.html.twig' %}
+
+{% block title %}Pause{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Gestion des pauses</h2>
+    <a class="waves-effect waves-light btn modal-trigger" style="width:100%; marin-bottom:20px;" href="#modal1">Ajouter une pause</a>
+    <div class="row">
+        <div class="col m6">
+            <ul class="collapsible">
+                {% for step in time_steps %}
+                  {% if not loop.index is even %}
+                      <li>
+                          <div class="collapsible-header {{step.color}}" style="display: block;">{{step.time}} <div class="right" style="margin-right: 10px;">{{ step.count }}/{{ step.max }}</div></div>
+                          <div class="collapsible-body">
+                          <ul class="collection with-header">
+                              {% for break in step.breaks %}
+                              <li class="collection-item"><div>{{ break.userid.firstname }}, {{ break.userid.lastname }}<a href="/admin/break/remove/{{ break.id }}" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
+                              {% endfor %}
+                          </ul>
+                          </div>
+                      </li>
+                  {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col m6">
+            <ul class="collapsible">
+                {% for step in time_steps %}
+                {% if loop.index is even %}
+                      <li>
+                        <div class="collapsible-header {{step.color}}" style="display: block;">{{step.time}} <div class="right" style="margin-right: 10px;">{{ step.count }}/{{ step.max }}</div></div>
+                        <div class="collapsible-body">
+                          <ul class="collection with-header">
+                              {% for break in step.breaks %}
+                              <li class="collection-item"><div>{{ break.userid.firstname }}, {{ break.userid.lastname }}<a href="/admin/break/remove/{{ break.id }}" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
+                              {% endfor %}
+                          </ul>
+                          </div>
+                      </li>
+                  {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Ajouter une pause</h4>
+      {{ form_start(form) }}
+      {{ form_row(form.time) }}
+      {{ form_row(form.user_id) }}
+      <button class="waves-effect waves-light btn" type="submit">valider</button>
+      {{ form_end(form) }}
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+          
+</div>
+{% endblock %}

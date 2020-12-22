@@ -1,0 +1,53 @@
+{% extends 'security/security_base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col m12" style="text-align: center;">
+            <img src="img/logo.png">
+        </div>
+    </div>
+    <div class="row">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="card-panel red lighten-4">
+                <span>Vous etes déjà connecter en tans que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnectez vous</a></span>
+            </div>
+        {% endif %}
+        <div class="col m12">
+            <h2 class="center-align">Connexion</h2>
+            <div class="row">
+                <form class="col s12" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="inputUsername" type="text" class="validate" name="username" value="{{ last_username }}" required autofocus>
+                            <label for="inputUsername">Login</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="inputPassword" type="password" name="password" class="validate" required>
+                            <label for="inputPassword">Mot de passe</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m12">
+                            <p class="right-align">
+                                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Connexion</button>
+                            </p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                    >
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

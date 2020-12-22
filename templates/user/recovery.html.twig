@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récupération{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Récupération</h2>
+    <h4>Faire une demande de récupération</h4>
+    {{ form_start(form) }}
+        <h5><b>Date</b></h5>
+        {{ form_row(form.date) }}
+        <h5><b>Créneaux</b></h5>
+        <div class="row">
+            <div class="input-field col s6">{{ form_row(form.time_from) }}</div>
+            <div class="input-field col s6">{{ form_row(form.time_to) }}</div>
+        </div>
+        <h5><b>Commentaire</b></h5>
+        {{ form_row(form.comment) }}
+        <button class="waves-effect waves-light btn" type="submit">valider</button>
+    {{ form_end(form) }}
+    <h4>Mes demandes en cours</h4>
+    <ul class="collection with-header">
+        {% for recovery in recoveries %}
+            {% set difference = (date(recovery.timeto).timestamp - date(recovery.timefrom).timestamp) / 60 %}
+            <li class="collection-item"><div>Le {{ recovery.date|date('d/m/y') }} de {{ recovery.timefrom|date('H:i') }} à {{ recovery.timeto|date('H:i') }} ({{difference}} minutes) - <i class="orange-text">En attente</i>
+                {% if recovery.status == 0 %}
+                    <a href="/recovery/remove/{{ recovery.id }}" class="secondary-content"><i class="material-icons left">delete</i> Annuler</a></div></li>      
+                {% endif %}
+        {% endfor %}
+    </ul>
+  </div>
+  {% block js %}
+  <script>
+    $(document).ready(function(){
+        inter_fr = {
+          labelMonthNext: 'Mois suivant',
+          labelMonthPrev: 'Mois précédent',
+          labelMonthSelect: 'Selectionner le mois',
+          labelYearSelect: 'Selectionner une année',
+          months: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+          monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+          weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+          weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+          weekdaysLetter: [ 'D', 'L', 'Ma', 'Me', 'J', 'V', 'S' ],
+          today: 'Aujourd\'hui',
+          clear: 'Réinitialiser',
+          close: 'Fermer',
+          cancel: 'Annuler',
+          done: 'Valider',
+        }
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+        date = new Date();
+        $('.datepicker').datepicker({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 2, // Creates a dropdown of 15 years to control year
+            minDate: date,
+            maxDate: date.addDays(7),
+            i18n: inter_fr,
+        		format: 'dd/mm/yyyy'
+
+        });
+        $('.timepicker').timepicker({
+          i18n: inter_fr,
+          twelveHour: false,
+        });
+      });
+  </script>
+  {% endblock %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'security/security_base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col m12" style="text-align: center;">
+            <img src="img/logo.png">
+        </div>
+    </div>
+    <div class="row">
+        {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Vous etes déjà connecter en tans que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnectez vous</a>
+            </div>
+        {% endif %}
+        <div class="col m12">
+            <h2 class="center-align">Inscription</h2>
+            <div class="row">
+                {{ form_start(registrationForm) }}
+                    <div class="row">
+                        {{ form_row(registrationForm.username) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(registrationForm.firstname) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(registrationForm.lastname) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(registrationForm.plainPassword, {
+                            label: 'Password'
+                        }) }}
+                    </div>
+                    <div class="row">
+                        <div class="col m12">
+                            <p class="right-align">
+                                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Connexion</button>
+                            </p>
+                        </div>
+                    </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

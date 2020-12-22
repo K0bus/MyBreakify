@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pause{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Mes pauses</h2>
+    <!-- Formulaire de demande de pause -->
+    <h4>Faire une demande de pauses</h4>
+    {{ form_start(form) }}
+    {{ form_row(form.time) }}
+    <button class="waves-effect waves-light btn" type="submit">valider</button>
+    {{ form_end(form) }}
+    {% for error in errors %}
+        <div class="card-panel red lighten-4">
+            <span class="red-text text-darken-4">Erreur : {{ error }}<br><br><i class="material-icons red-text text-darken-1">error</i></span>
+        </div>
+    {% endfor %}
+    <!-- Vision des pauses disponible -->
+    <h4>Pauses validé</h4>
+    <ul class="collection with-header">
+        {% for break in breaks %}
+            <li class="collection-item"><div>{{ break.time|date("H:i") }}
+                {% if break.time|date("H:i") > "now"|date("H:i") %}
+                    <a href="/break/remove/{{ break.id }}" class="secondary-content"><i class="material-icons left">delete</i> Annuler</a>
+                {% else %}
+                <span class="secondary-content grey-text text-darken-2"><i class="material-icons">alarm_off</i></span> <span class="secondary-content grey-text text-darken-2"><i>Cette pause est passée </i></span>
+                {% endif %}
+            </div></li>      
+        {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
