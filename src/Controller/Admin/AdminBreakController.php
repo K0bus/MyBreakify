@@ -3,7 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\UserBreak;
-use App\Form\UserBreakType;
+use App\Entity\User;
+use App\Form\AdminUserBreakType;
 use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,8 @@ class AdminBreakController extends AbstractController
      */
     public function break(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $userBreak = new UserBreak();

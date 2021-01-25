@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pause{% endblock %}
+
+{% block body %}
+    <div class="container">
+      <h2>Configuration</h2>
+      <div class="row">
+        <h4>Imports</h4>
+        <div class="row">
+          <h5>Pauses / Récup</h5>
+            <form action="/admin/settings" method="POST" enctype="multipart/form-data">
+                <div class="file-field input-field">
+                <div class="btn blue col s3">
+                    <span>Importer</span>
+                    <input type="file" name="file_break">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+                </div>
+                <button class="btn waves-effect col s12 green" type="submit">Envoyer</button>
+            </form>
+        </div>
+        <div class="row">
+          <h5>Staff</h5>
+            <form action="/admin/settings" method="POST" enctype="multipart/form-data">
+                <div class="file-field input-field">
+                <div class="btn blue col s3">
+                    <span>Importer</span>
+                    <input type="file" name="file_user">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+                </div>
+                <button class="btn waves-effect col s12 green" type="submit">Envoyer</button>
+            </form>
+      </div>
+{% endblock %}

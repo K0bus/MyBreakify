@@ -42,6 +42,7 @@ class UserBreakController extends AbstractController
         }
         while ($temp <= $endDate)
         {
+            //TODO : Get hour
             $now = new DateTime("12:36");
             $now->sub(new DateInterval('PT5M'));
             if($now < $temp && !in_array($temp->format("H:i"), $time_blacklist))
