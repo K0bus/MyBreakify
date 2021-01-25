@@ -3,7 +3,7 @@ name: Deploy website
 jobs:
   web-deploy:
     name: Deploy
-    runs-on: unbuntu-latest
+    runs-on: unbuntu-20.04
     steps:
     - name: Get latest code
       uses: actions/checkout@v2.3.2
