@@ -1,0 +1,16 @@
+on: push
+name: Deploy website
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: unbuntu-latest
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v2.3.2
+    
+    - name: Sync file
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.ftp_server }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
