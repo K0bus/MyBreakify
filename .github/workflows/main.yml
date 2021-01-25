@@ -15,7 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  web-deploy:
+  build:
     name: Deploy
     runs-on: unbuntu-latest
     steps:
