@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pause{% endblock %}
+
+{% block body %}
+         <h2>Gestion des récupérations</h2>
+      <table class="centered">
+        <thead>
+          <tr>
+              <th>NOM, Prénom</th>
+              <th>Période</th>
+              <th>Temps voulus</th>
+              <th>Commentaire</th>
+              <th>Etat</th>
+              <th>Edition</th>
+              <th>Docs</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>LACOCHE, Clarisse <a href="#modal-info" class="modal-trigger">?</a></td>
+            <td>Le <b>06/06/2019</b> de <b>16:00</b> à <b>17:00</b></td>
+            <td>60 minutes</td>
+            <td>Versari datam moderatur male Tecum hunc male illum fortius male.</td>
+            <td><i class="material-icons orange-text">timer</i></td>
+            <td> <button data-target="modal-edit" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
+            <td><a target="_blank" href="docs.pdf"><i class="material-icons">picture_as_pdf</i></a></td>
+          </tr>
+          <tr>
+            <td>TAILLEBOSQ, Fabien</td>
+            <td>Le <b>05/06/2019</b> de <b>15:00</b> à <b>17:00</b></td>
+            <td>120 minutes</td>
+            <td>Versari datam moderatur male Tecum hunc male illum fortius male.</td>
+            <td><i class="material-icons red-text">close</i></td>
+            <td><button class="btn disabled"><i class="material-icons">edit</i></button></td>
+            <td><i class="material-icons grey-text">picture_as_pdf</i></td>
+          </tr>
+          <tr>
+            <td>TOUTAIN, Tristan</td>
+            <td>Le <b>04/06/2019</b> de <b>13:00</b> à <b>17:00</b></td>
+            <td>240 minutes</td>
+            <td>Versari datam moderatur male Tecum hunc male illum fortius male.</td>
+            <td><i class="material-icons green-text">check</i></td>
+            <td><button class="btn disabled"><i class="material-icons">edit</i></button></td>
+            <td><i class="material-icons grey-text">picture_as_pdf</i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="modal-edit" class="modal">
+      <div class="modal-content">
+        <h4>Edition de la récupération</h4>
+        <div class="row">
+          <form>
+            <div class="row">
+              <div class="input-field col s6">
+                <input placeholder="Placeholder" id="name" type="text" class="validate" value="LACOCHE, Clarisse">
+                <label for="name">NOM, Prénom</label>
+              </div>
+              <div class="input-field col s6">
+                 <select>
+                   <option value="1" selected>En attente</option>
+                   <option value="2">Validée</option>
+                   <option value="3">Refusée</option>
+                 </select>
+                 <label>Etat de la récupération</label>
+               </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6"><div class="prefix">De</div><input type="text" name="hourFrom" class="timepicker" value="16:00"></div>
+              <div class="input-field col s6"><div class="prefix">à</div><input type="text" name="fourTo" class="timepicker" value="17:00"></div>
+            </div>
+            <p class="center grey-text">
+              Dernières éditions effectué par TOUTAIN, Tristan à 15:30 le 06/06/2019
+            </p>
+            <button class="col s12 waves-effect waves-green btn-flat blue darken-1 white-text" type="submit">Sauvegarder</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+      </div>
+    </div>
+    <div id="modal-info" class="modal">
+      <div class="modal-content">
+        <h4>Information sur l'agent</h4>
+        <ul class="collection with-header">
+          <li class="collection-item"><div>NOM, Prénom<div class="secondary-content">LACOCHE, Clarisse</div></div></li>
+          <li class="collection-item"><div>Demande de récupération (30 derniers jours)<div class="secondary-content">6</div></div></li>
+          <li class="collection-item"><div>Demande de récupération (7 derniers jours)<div class="secondary-content">2</div></div></li>
+          <li class="collection-item"><div>Demande de récupération validée (30 derniers jours)<div class="secondary-content">120 minutes</div></div></li>
+          <li class="collection-item"><div>Demande de récupération validée (7 derniers jours)<div class="secondary-content">30 minutes</div></div></li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+      </div>
+    </div>
+{% endblock %}
+
+
+{% block body %}
+        <script>
+      $(document).ready(function(){
+        inter_fr = {
+          close: 'Fermer',
+          cancel: 'Annuler',
+          done: 'Valider',
+        }
+        $('.modal').modal();
+        $('select').formSelect();
+        $('.timepicker').timepicker({
+          i18n: inter_fr,
+          twelveHour: false,
+        });
+      });
+    </script>
+{% endblock %}
