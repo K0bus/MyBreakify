@@ -35,7 +35,7 @@ class AdminRecoveryController extends AbstractController
         $users = array();
         foreach ($recoveries as $key => $value) {
             $user = array();
-            $user["data"] = $recovery->getUserId();
+            $user["data"] = $value->getUserId();
             $user["recovery_data"]["nb_7d"] = 0;
             $user["recovery_data"]["nb_30d"] = 0;
             $user["recovery_data"]["time_7d"] = 0;
