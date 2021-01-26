@@ -65,7 +65,7 @@ class AdminConfigController extends AbstractController
             if(!array_key_exists("username", $data[1]) || !array_key_exists("email", $data[1]) || !array_key_exists("firstname", $data[1]) || 
                 !array_key_exists("lastname", $data[1]) || !array_key_exists("password", $data[1]) || !array_key_exists("role", $data[1]))
             {
-                array_push($errors, "Le fichier CSV " . $file_user->getName() . " n'est pas correcte !" );
+                array_push($errors, "Le fichier CSV " . $file_user->getClientOriginalName() . " n'est pas correcte !" );
             }
             else
             {
