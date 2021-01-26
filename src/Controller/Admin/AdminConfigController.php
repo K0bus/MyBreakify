@@ -36,25 +36,33 @@ class AdminConfigController extends AbstractController
         $file_user = $request->files->get('file_user');
         if($file_break != NULL)
         {
-            $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
-            $data = $serializer->decode(str_replace(";",",",file_get_contents($file_break->getPathname())), 'csv');
-            foreach ($data as $key => $v) {
-                $t = $this->getDoctrine()
-                ->getRepository(TimeParam::class)
-                ->findOneBy([
-                    "time" => DateTime::createFromFormat('H:i', $v["hour"]),
-                    "date" => DateTime::createFromFormat('j/m/Y', $v["date"]),
-                ]);
-                if($t == null)
-                    $t = new TimeParam();
-                $t->setDate(DateTime::createFromFormat('j/m/Y', $v["date"]));
-                $t->setTime(DateTime::createFromFormat('H:i', $v["hour"]));
-                $t->setBreak($v["break"]);
-                $t->setRecovery($v["recovery"]);
-                $t->setBreakAdm($v["adm_break"]);
+            if(!array_key_exists("hour", $data[1]) || !array_key_exists("date", $data[1]) || !array_key_exists("break", $data[1]) || 
+                !array_key_exists("recovery", $data[1]) || !array_key_exists("adm_break", $data[1]))
+            {
+                array_push($errors, "Le fichier CSV " . $file_user->getClientOriginalName() . " n'est pas correcte !" );
+            }
+            else
+            {
+                $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+                $data = $serializer->decode(str_replace(";",",",file_get_contents($file_break->getPathname())), 'csv');
+                foreach ($data as $key => $v) {
+                    $t = $this->getDoctrine()
+                    ->getRepository(TimeParam::class)
+                    ->findOneBy([
+                        "time" => DateTime::createFromFormat('H:i', $v["hour"]),
+                        "date" => DateTime::createFromFormat('j/m/Y', $v["date"]),
+                    ]);
+                    if($t == null)
+                        $t = new TimeParam();
+                    $t->setDate(DateTime::createFromFormat('j/m/Y', $v["date"]));
+                    $t->setTime(DateTime::createFromFormat('H:i', $v["hour"]));
+                    $t->setBreak($v["break"]);
+                    $t->setRecovery($v["recovery"]);
+                    $t->setBreakAdm($v["adm_break"]);
 
-                $entityManager->persist($t);
-                $entityManager->flush();
+                    $entityManager->persist($t);
+                    $entityManager->flush();
+                }
             }
         }
         if($file_user != NULL)
