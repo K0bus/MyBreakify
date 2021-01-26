@@ -44,7 +44,7 @@ class AdminRecoveryController extends AbstractController
 
             $user_recoveries = $this->getDoctrine()
             ->getManager()
-            ->createQuery('SELECT e FROM AppBundle:UserRecovery e WHERE e.date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW();')
+            ->createQuery('SELECT e FROM App\Entity\UserRecovery e WHERE e.date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW();')
             ->getResult();
 
             foreach ($user_recoveries as $k2 => $v2) {
@@ -55,7 +55,7 @@ class AdminRecoveryController extends AbstractController
 
             $user_recoveries = $this->getDoctrine()
             ->getManager()
-            ->createQuery('SELECT e FROM AppBundle:UserRecovery e WHERE e.date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW();')
+            ->createQuery('SELECT e FROM App\Entity\UserRecovery e WHERE e.date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW();')
             ->getResult();
 
             foreach ($user_recoveries as $k2 => $v2) {
