@@ -42,7 +42,7 @@ class AdminRecoveryController extends AbstractController
             $user["recovery_data"]["time_7d"] = 0;
             $user["recovery_data"]["time_30d"] = 0;
 
-            $user_recoveries = $this->getDoctrine()
+            /**$user_recoveries = $this->getDoctrine()
             ->getManager()
             ->createQuery('SELECT e FROM App\Entity\UserRecovery e WHERE e.date BETWEEN DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY) AND CURRENT_TIMESTAMP();')
             ->getResult();
@@ -62,7 +62,7 @@ class AdminRecoveryController extends AbstractController
                 $user["recovery_data"]["nb_7d"] = $user["recovery_data"]["nb_7d"] + 1;
                 if($v2->getStatus() == 1)
                     $user["recovery_data"]["time_7d"] = $user["recovery_data"]["time_7d"] + ($v2->getTimeFrom->diff($v2->getTimeTo())->i);    
-            }
+            }**/
 
             if(!array_key_exists($user["data"]->getId(), $users))
                 $users[$user["data"]->getId()] = $user;
