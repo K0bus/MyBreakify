@@ -20,8 +20,10 @@ class AdminRecoveryController extends AbstractController
     /**
      * @Route("/admin/recovery", name="app_admin_recovery")
      */
-    public function recovery(): Response
+    public function recovery(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_N1');
+
         return $this->render('admin/recovery.html.twig');
     }
 
