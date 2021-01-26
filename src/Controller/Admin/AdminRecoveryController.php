@@ -32,9 +32,21 @@ class AdminRecoveryController extends AbstractController
         ->findBy([
             "date" => new DateTime(),
         ]);
+        $users = array();
+        foreach ($recoveries as $key => $value) {
+            $user = array();
+            $user["data"] = $recovery->getUserId();
+            $user["recovery_data"]["nb_7d"] = 0;
+            $user["recovery_data"]["nb_30d"] = 0;
+            $user["recovery_data"]["time_7d"] = 0;
+            $user["recovery_data"]["time_30d"] = 0;
+            if(!array_key_exists($user["data"]->getId(), $users))
+                $users[$user["data"]->getId()] = $user;
+        }
 
         return $this->render('admin/recovery.html.twig',[
-            "recoveries" => $recoveries
+            "recoveries" => $recoveries,
+            "users" => $users
         ]);
     }
 
