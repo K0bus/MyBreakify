@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\UserBreak;
 use App\Entity\User;
+use App\Entity\TimeParam;
 use App\Form\AdminUserBreakType;
 use DateInterval;
 use DateTime;
@@ -76,11 +77,25 @@ class AdminBreakController extends AbstractController
                 "date" => new DateTime(),
             ]);
 
+            $time_param = $this->getDoctrine()
+            ->getRepository(TimeParam::class)
+            ->findOneBy([
+                "time" => $temp,
+                "date" => new DateTime(),
+            ]);
+
             $data = array();
             $data["time"] = $temp->format("H:i");
             $data["breaks"] = $breaks;
             $data["count"] = count($breaks);
-            $data["max"] = 1;
+            $data["max"] = -1;
+            $data["adm_max"] = 0;
+            if($time_param != null)
+            {
+                $data["max"] = $time_param->getBreak();
+                $data["adm_max"] = $time_param->getBreakAdm();
+            }
+                
 
             $v = $data["count"] / $data["max"] * 100;
             if($v<75)

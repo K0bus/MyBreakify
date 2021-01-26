@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\UserBreak;
 use App\Entity\User;
+use App\Entity\TimeParam;
 use App\Form\AdminUserBreakType;
 use DateInterval;
 use DateTime;
@@ -35,12 +36,21 @@ class AdminConfigController extends AbstractController
             $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
             $data = $serializer->decode(file_get_contents($file_break->getPathname()), 'csv');
             foreach ($data as $key => $v) {
-                $t = new TimeParam();
-                $t->setDate($v["date"]);
-                $t->setHour($v["hour"]);
+                $t = $this->getDoctrine()
+                ->getRepository(TimeParam::class)
+                ->findOneBy([
+                    "time" => DateTime::createFromFormat('H:i', $v["hour"]),
+                    "date" => DateTime::createFromFormat('j/m/Y', $v["date"]),
+                ]);
+                if($t == null)
+                    $t = new TimeParam();
+                $t->setDate(DateTime::createFromFormat('j/m/Y', $v["date"]));
+                $t->setTime(DateTime::createFromFormat('H:i', $v["hour"]));
                 $t->setBreak($v["break"]);
-                $t->setRecovery($v["recovery"]);;
-                $t->set
+                $t->setRecovery($v["recovery"]);
+                $t->setBreakAdm($v["adm_break"]);
+                $entityManager->persist($t);
+                $entityManager->flush();
             }
         }
         if($file_user != NULL)
