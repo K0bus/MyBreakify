@@ -119,7 +119,7 @@ class AdminBreakController extends AbstractController
      */
     public function break_remove(int $id, Request $request, UserInterface $user): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_N1');
 
         $userBreak = $this->getDoctrine()
             ->getRepository(UserBreak::class)
