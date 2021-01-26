@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
-class AdminController extends AbstractController
+class AdminStaffController extends AbstractController
 {
     /**
      * @Route("/admin/staff", name="app_admin_staff")
