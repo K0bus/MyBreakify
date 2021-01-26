@@ -22,7 +22,7 @@
             {% for recovery in recoveries %}
                 <tr>
                     <td>{{recovery.userid.firstname}}, {{recovery.userid.lastname}} <a href="#modal-info" class="modal-trigger">?</a></td>
-                    <td>Le <b>{{recovery.date}}</b> de <b>{{recovery.time_from}}</b> à <b>{{ recovery.time_to }}</b></td>
+                    <td>Le <b>{{recovery.date|date("d/m/Y")}}</b> de <b>{{recovery.time_from|date("H:i")}}</b> à <b>{{ recovery.time_to|date("H:i") }}</b></td>
                     <td>60 minutes</td>
                     <td>{{recovery.comment}}</td>
                     <td><i class="material-icons orange-text">timer</i></td>
