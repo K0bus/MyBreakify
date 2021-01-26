@@ -12,7 +12,7 @@
                 {% for step in time_steps %}
                   {% if not loop.index is even %}
                       <li>
-                          <div class="collapsible-header {{step.color}}" style="display: block;">{{step.time}} <div class="right" style="margin-right: 10px;">{{ step.count }}/{{ step.max }}</div></div>
+                          <div class="collapsible-header {{step.color}}" style="display: block;">{{step.time}} <div class="right" style="margin-right: 10px;">{{ step.count }}/{{ step.max }} {% if step.adm_max > 0 %}(+{{step.adm_max}}){% endif %}</div></div>
                           <div class="collapsible-body">
                           <ul class="collection with-header">
                               {% for break in step.breaks %}
@@ -30,7 +30,7 @@
                 {% for step in time_steps %}
                 {% if loop.index is even %}
                       <li>
-                        <div class="collapsible-header {{step.color}}" style="display: block;">{{step.time}} <div class="right" style="margin-right: 10px;">{{ step.count }}/{{ step.max }}</div></div>
+                        <div class="collapsible-header {{step.color}}" style="display: block;">{{step.time}} <div class="right" style="margin-right: 10px;">{{ step.count }}/{{ step.max }} {% if step.adm_max > 0 %}(+{{step.adm_max}}){% endif %}</div></div>
                         <div class="collapsible-body">
                           <ul class="collection with-header">
                               {% for break in step.breaks %}

@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\UserBreak;
-use App\Form\UserBreakType;
+use App\Entity\User;
+use App\Entity\TimeParam;
+use App\Form\AdminUserBreakType;
 use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +22,8 @@ class AdminBreakController extends AbstractController
      */
     public function break(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $userBreak = new UserBreak();
@@ -73,16 +77,30 @@ class AdminBreakController extends AbstractController
                 "date" => new DateTime(),
             ]);
 
+            $time_param = $this->getDoctrine()
+            ->getRepository(TimeParam::class)
+            ->findOneBy([
+                "time" => $temp,
+                "date" => new DateTime(),
+            ]);
+
             $data = array();
             $data["time"] = $temp->format("H:i");
             $data["breaks"] = $breaks;
             $data["count"] = count($breaks);
-            $data["max"] = 1;
+            $data["max"] = -1;
+            $data["adm_max"] = 0;
+            if($time_param != null)
+            {
+                $data["max"] = $time_param->getBreak();
+                $data["adm_max"] = $time_param->getBreakAdm();
+            }
+                
 
             $v = $data["count"] / $data["max"] * 100;
-            if($v<75)
+            if($data["count"]<$data["max"])
                 $data["color"] = "";
-            elseif($v<100)
+            elseif($data["count"]<$data["adm_max"])
                 $data["color"] = "orange";
             else
                 $data["color"] = "red lighten-3";

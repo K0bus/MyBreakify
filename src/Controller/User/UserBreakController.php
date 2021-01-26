@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\UserBreak;
+use App\Entity\TimeParam;
 use App\Form\UserBreakType;
 use DateInterval;
 use DateTime;
@@ -42,10 +43,27 @@ class UserBreakController extends AbstractController
         }
         while ($temp <= $endDate)
         {
-            $now = new DateTime("12:36");
+            //TODO : Get hour
+            $now = new DateTime("09:00");
             $now->sub(new DateInterval('PT5M'));
-            if($now < $temp && !in_array($temp->format("H:i"), $time_blacklist))
-                $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
+
+            $breaks = $this->getDoctrine()
+            ->getRepository(UserBreak::class)
+            ->findBy([
+                "time" => $temp,
+                "date" => new DateTime(),
+            ]);
+
+            $time_param = $this->getDoctrine()
+            ->getRepository(TimeParam::class)
+            ->findOneBy([
+                "time" => $temp,
+                "date" => new DateTime(),
+            ]);
+
+            if($time_param != null)
+                if($now < $temp && !in_array($temp->format("H:i"), $time_blacklist) && count($breaks) < $time_param->getBreak())
+                    $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
             $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
         }
         $form = $this->createForm(UserBreakType::class, $userBreak, [
@@ -70,6 +88,7 @@ class UserBreakController extends AbstractController
             ->getRepository(UserBreak::class)
             ->findBy([
                 "user_id" => $user,
+                "date" => new DateTime()
             ]);
         return $this->render('user/break.html.twig', [
             "form" => $form->createView(),
