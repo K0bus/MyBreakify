@@ -88,6 +88,7 @@ class UserBreakController extends AbstractController
             ->getRepository(UserBreak::class)
             ->findBy([
                 "user_id" => $user,
+                "date" => new DateTime()
             ]);
         return $this->render('user/break.html.twig', [
             "form" => $form->createView(),

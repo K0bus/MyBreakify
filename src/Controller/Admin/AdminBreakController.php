@@ -98,9 +98,9 @@ class AdminBreakController extends AbstractController
                 
 
             $v = $data["count"] / $data["max"] * 100;
-            if($v<75)
+            if($data["count"]<$data["max"])
                 $data["color"] = "";
-            elseif($v<100)
+            elseif($data["count"]<$data["adm_max"])
                 $data["color"] = "orange";
             else
                 $data["color"] = "red lighten-3";

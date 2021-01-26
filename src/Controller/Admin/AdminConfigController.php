@@ -17,13 +17,14 @@ use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminConfigController extends AbstractController
 {
     /**
      * @Route("/admin/settings", name="app_admin_settings")
      */
-    public function settings(Request $request): Response
+    public function settings(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -49,6 +50,7 @@ class AdminConfigController extends AbstractController
                 $t->setBreak($v["break"]);
                 $t->setRecovery($v["recovery"]);
                 $t->setBreakAdm($v["adm_break"]);
+
                 $entityManager->persist($t);
                 $entityManager->flush();
             }
@@ -56,7 +58,40 @@ class AdminConfigController extends AbstractController
         if($file_user != NULL)
         {
             $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
-            $data = $serializer->decode(file_get_contents('data.csv'), 'csv');
+            $data = $serializer->decode(file_get_contents($file_user->getPathname()), 'csv');
+            foreach ($data as $key => $v) {
+                $t = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy([
+                    "username" => $v["username"]
+                ]);
+                $new = false;
+                if($t == null)
+                {
+                    $t = new User();
+                    $new = true;
+                }
+                $t->setUsername($v["username"]);
+                $t->setEmail($v["email"]);
+                $t->setFirstname($v["firstname"]);
+                $t->setLastname($v["lastname"]);
+                $t->setPassword($encoder->encodePassword($t, $v["password"]));
+                if($new)
+                {
+                    $t->setCreatedAt(new DateTime());
+                    $t->setLoggedAt(new DateTime());
+                }
+                if($v["role"] == "ADMIN")
+                {
+                    $t->setRoles(array("ROLE_ADMIN"));
+                }
+                elseif ($v["role"] == "N1") {
+                    $t->setRoles(array("ROLE_N1"));
+                }
+                //TODO : Add role
+                $entityManager->persist($t);
+                $entityManager->flush();
+            }
         }
 
         return $this->render('admin/config.html.twig', [

@@ -33,15 +33,17 @@
             <li><a href="/logout"><i class="material-icons right">lock</i>Déconnexion</a></li>
           </ul>
         </div>
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_N1') or is_granted('ROLE_ADMIN') %}
         <div class="nav-content">
           <ul class="tabs tabs-transparent">
             <li class="tab"><a href="/admin">Tableau de bord</a></li>
             <li class="tab"><a href="/admin/break">Gestion pause</a></li>
             <li class="tab"><a href="/admin/recovery">Gestion récupération</a></li>
-            <li class="tab"><a href="/admin/settings">Configuration</a></li>
-            <li class="tab"><a href="/admin/export">Export</a></li>
-            <li class="tab"><a href="/admin/staff">Staff</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+              <li class="tab"><a href="/admin/settings">Configuration</a></li>
+              <li class="tab"><a href="/admin/export">Export</a></li>
+              <li class="tab"><a href="/admin/staff">Staff</a></li>
+            {% endif %}
           </ul>
         </div>
         {% endif %}
