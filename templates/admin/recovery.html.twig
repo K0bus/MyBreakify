@@ -37,7 +37,7 @@
                         <td><i class="material-icons gray-text">close</i></td>
                     {% endif %}
                     <td> <button data-target="modal-edit-{{ recovery.id }}" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-                    <td><a target="_blank" href="/admin/recovery/pdf/{{ recovery.id }}"><i class="material-icons">picture_as_pdf</i></a></td>
+                    <td><a target="_blank" href="/admin/recovery/pdf/{{ recovery.id }}"{% if recovery.status != 1 %} class="disabled"{% endif %}><i class="material-icons">picture_as_pdf</i></a></td>
                 </tr>
             {% endfor %}
         </tbody>
