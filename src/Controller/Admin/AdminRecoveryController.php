@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\UserBreak;
+use App\Entity\UserRecovery;
 use App\Form\AdminUserBreakType;
 use App\Form\UserBreakType;
 use DateInterval;
@@ -23,8 +24,18 @@ class AdminRecoveryController extends AbstractController
     public function recovery(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_N1');
+        
+        $entityManager = $this->getDoctrine()->getManager();
 
-        return $this->render('admin/recovery.html.twig');
+        $recoveries = $this->getDoctrine()
+        ->getRepository(UserRecovery::class)
+        ->findBy([
+            "date" => new DateTime(),
+        ]);
+
+        return $this->render('admin/recovery.html.twig',[
+            "recoveries" => $recoveries
+        ]);
     }
 
 }
