@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pause{% endblock %}
+
+{% block body %}
+    <div class="container">
+      <h2>Staff</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>NOM, Prénom</th>
+            <th>Responsable</th>
+            <th>Niveau</th>
+            <th>Etats</th>
+            <th>Edition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ttoutain</td>
+            <td>TOUTAIN, Tristan</td>
+            <td>LEPAISANT Nicolas</td>
+            <td>Administrateur</td>
+            <td><i class="material-icons red-text">close</i></td>
+            <td><a href=""><i class="material-icons">edit</i></a></td>
+          </tr>
+          <tr>
+            <td>ttoutain</td>
+            <td>TOUTAIN, Tristan</td>
+            <td>LEPAISANT Nicolas</td>
+            <td>Superviseur</td>
+            <td><i class="material-icons green-text">check</i></td>
+            <td><a href=""><i class="material-icons">edit</i></a></td>
+          </tr>
+          <tr>
+            <td>ttoutain</td>
+            <td>TOUTAIN, Tristan</td>
+            <td>LEPAISANT Nicolas</td>
+            <td>Agent</td>
+            <td><i class="material-icons green-text">check</i></td>
+            <td><a href=""><i class="material-icons">edit</i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
