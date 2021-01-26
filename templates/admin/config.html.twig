@@ -36,5 +36,13 @@
                 </div>
                 <button class="btn waves-effect col s12 green" type="submit">Envoyer</button>
             </form>
-      </div>
+        </div>
+        {% if not errors is empty %}
+        <div class="row">
+            <h5>Erreurs</h5>
+            {% for error in errors %}
+                <div class="card-panel red lighten-3">error</div>
+            {% endfor %}
+        </div>
+        {% endif %}
 {% endblock %}

@@ -28,6 +28,8 @@ class AdminConfigController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        $errors = array();
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $file_break = $request->files->get('file_break');
@@ -59,6 +61,12 @@ class AdminConfigController extends AbstractController
         {
             $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
             $data = $serializer->decode(str_replace(";",",",file_get_contents($file_user->getPathname())), 'csv');
+            $now = new DateTime();
+            if(array_key_exists("username", $data[1]) && array_key_exists("email", $data[1]) && array_key_exists("firstname", $data[1]) && 
+                array_key_exists("lastname", $data[1]) && array_key_exists("password", $data[1]) && array_key_exists("role", $data[1]))
+            {
+                array_push($errors, "Le fichier CSV " . $file_user->getName() . " n'est pas correcte !" );
+            }
             foreach ($data as $key => $v) {
                 $t = $this->getDoctrine()
                 ->getRepository(User::class)
@@ -75,15 +83,24 @@ class AdminConfigController extends AbstractController
                 $t->setEmail($v["email"]);
                 $t->setFirstname($v["firstname"]);
                 $t->setLastname($v["lastname"]);
-                $t->setPassword($encoder->encodePassword($t, $v["password"]));
+                if($new && $v["password"] != "")
+                {
+                    $t->setPassword($encoder->encodePassword($t, $v["password"]));
+                }
+                elseif($new)
+                {
+                    $t->setPassword($encoder->encodePassword($t, md5(microtime())));
+                }
+                if(!$new && $v["password"] != "")
+                    $t->setPassword($encoder->encodePassword($t, $v["password"]));
                 if($new)
                 {
-                    $t->setCreatedAt(new DateTime());
-                    $t->setLoggedAt(new DateTime());
+                    $t->setCreatedAt($now);
+                    $t->setLoggedAt($now);
                 }
                 if($v["role"] == "ADMIN")
                 {
-                    $t->setRoles(array("ROLE_ADMIN"));
+                    $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
                 }
                 elseif ($v["role"] == "N1") {
                     $t->setRoles(array("ROLE_N1"));
@@ -95,7 +112,8 @@ class AdminConfigController extends AbstractController
         }
 
         return $this->render('admin/config.html.twig', [
-            "form" => null        ]);
+            "errors" => $errors,
+        ]);
     }
     /**
      * @Route("/admin/recovery/remove/{id<\d+>?1}", name="app_admin_recovery_remove", requirements={"id"="\d+"})
