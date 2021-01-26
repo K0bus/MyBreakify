@@ -35,7 +35,7 @@ class AdminConfigController extends AbstractController
         if($file_break != NULL)
         {
             $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
-            $data = $serializer->decode(file_get_contents($file_break->getPathname()), 'csv');
+            $data = $serializer->decode(str_replace(";",",",file_get_contents($file_break->getPathname())), 'csv');
             foreach ($data as $key => $v) {
                 $t = $this->getDoctrine()
                 ->getRepository(TimeParam::class)
@@ -58,7 +58,7 @@ class AdminConfigController extends AbstractController
         if($file_user != NULL)
         {
             $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
-            $data = $serializer->decode(file_get_contents($file_user->getPathname()), 'csv');
+            $data = $serializer->decode(str_replace(";",",",file_get_contents($file_user->getPathname())), 'csv');
             foreach ($data as $key => $v) {
                 $t = $this->getDoctrine()
                 ->getRepository(User::class)
