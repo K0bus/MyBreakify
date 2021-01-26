@@ -20,11 +20,22 @@
 
         <tbody>
             {% for recovery in recoveries %}
+                {% set difference = date(recovery.timeto).diff(date(recovery.timefrom)) %}
+                {% set minutes = difference.minutes %}
                 <tr>
                     <td>{{recovery.userid.firstname}}, {{recovery.userid.lastname}} <a href="#modal-info" class="modal-trigger">?</a></td>
                     <td>Le <b>{{recovery.date|date("d/m/Y")}}</b> de <b>{{recovery.timefrom|date("H:i")}}</b> à <b>{{ recovery.timeto|date("H:i") }}</b></td>
-                    <td>60 minutes</td>
+                    <td>{{minutes}} minutes</td>
                     <td>{{recovery.comment}}</td>
+                    {% if recovery.status = 0 %}
+                        <td><i class="material-icons orange-text">timer</i></td>
+                    {% else if recovery.status = 1 %}
+                        <td><i class="material-icons green-text">check</i></td>
+                    {% else if recovery.status = 2 %}
+                        <td><i class="material-icons red-text">close</i></td>
+                    {% else if recovery.status = 3 %}
+                        <td><i class="material-icons gray-text">close</i></td>
+                    {% endif %}
                     <td><i class="material-icons orange-text">timer</i></td>
                     <td> <button data-target="modal-edit" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
                     <td><a target="_blank" href="docs.pdf"><i class="material-icons">picture_as_pdf</i></a></td>
