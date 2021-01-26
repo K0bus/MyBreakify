@@ -67,47 +67,50 @@ class AdminConfigController extends AbstractController
             {
                 array_push($errors, "Le fichier CSV " . $file_user->getName() . " n'est pas correcte !" );
             }
-            foreach ($data as $key => $v) {
-                $t = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy([
-                    "username" => $v["username"]
-                ]);
-                $new = false;
-                if($t == null)
-                {
-                    $t = new User();
-                    $new = true;
+            else
+            {
+                foreach ($data as $key => $v) {
+                    $t = $this->getDoctrine()
+                    ->getRepository(User::class)
+                    ->findOneBy([
+                        "username" => $v["username"]
+                    ]);
+                    $new = false;
+                    if($t == null)
+                    {
+                        $t = new User();
+                        $new = true;
+                    }
+                    $t->setUsername($v["username"]);
+                    $t->setEmail($v["email"]);
+                    $t->setFirstname($v["firstname"]);
+                    $t->setLastname($v["lastname"]);
+                    if($new && $v["password"] != "")
+                    {
+                        $t->setPassword($encoder->encodePassword($t, $v["password"]));
+                    }
+                    elseif($new)
+                    {
+                        $t->setPassword($encoder->encodePassword($t, md5(microtime())));
+                    }
+                    if(!$new && $v["password"] != "")
+                        $t->setPassword($encoder->encodePassword($t, $v["password"]));
+                    if($new)
+                    {
+                        $t->setCreatedAt($now);
+                        $t->setLoggedAt($now);
+                    }
+                    if($v["role"] == "ADMIN")
+                    {
+                        $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
+                    }
+                    elseif ($v["role"] == "N1") {
+                        $t->setRoles(array("ROLE_N1"));
+                    }
+                    //TODO : Add role
+                    $entityManager->persist($t);
+                    $entityManager->flush();
                 }
-                $t->setUsername($v["username"]);
-                $t->setEmail($v["email"]);
-                $t->setFirstname($v["firstname"]);
-                $t->setLastname($v["lastname"]);
-                if($new && $v["password"] != "")
-                {
-                    $t->setPassword($encoder->encodePassword($t, $v["password"]));
-                }
-                elseif($new)
-                {
-                    $t->setPassword($encoder->encodePassword($t, md5(microtime())));
-                }
-                if(!$new && $v["password"] != "")
-                    $t->setPassword($encoder->encodePassword($t, $v["password"]));
-                if($new)
-                {
-                    $t->setCreatedAt($now);
-                    $t->setLoggedAt($now);
-                }
-                if($v["role"] == "ADMIN")
-                {
-                    $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
-                }
-                elseif ($v["role"] == "N1") {
-                    $t->setRoles(array("ROLE_N1"));
-                }
-                //TODO : Add role
-                $entityManager->persist($t);
-                $entityManager->flush();
             }
         }
 
