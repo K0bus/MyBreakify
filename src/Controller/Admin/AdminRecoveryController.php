@@ -96,8 +96,8 @@ class AdminRecoveryController extends AbstractController
             ->find($id);
         
         $userRecovery->setStatus(intval($request->request->get('status')));
-        $userRecovery->setTimeFrom($request->request->get('timeFrom'));
-        $userRecovery->setTimeTo($request->request->get('timeTo'));
+        $userRecovery->setTimeFrom(new DateTime($request->request->get('timeFrom')));
+        $userRecovery->setTimeTo(new DateTime($request->request->get('timeTo')));
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->update($userRecovery);
