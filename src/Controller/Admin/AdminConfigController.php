@@ -62,8 +62,8 @@ class AdminConfigController extends AbstractController
             $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
             $data = $serializer->decode(str_replace(";",",",file_get_contents($file_user->getPathname())), 'csv');
             $now = new DateTime();
-            if(array_key_exists("username", $data[1]) && array_key_exists("email", $data[1]) && array_key_exists("firstname", $data[1]) && 
-                array_key_exists("lastname", $data[1]) && array_key_exists("password", $data[1]) && array_key_exists("role", $data[1]))
+            if(!array_key_exists("username", $data[1]) && !array_key_exists("email", $data[1]) && !array_key_exists("firstname", $data[1]) && 
+                !array_key_exists("lastname", $data[1]) && !array_key_exists("password", $data[1]) && !array_key_exists("role", $data[1]))
             {
                 array_push($errors, "Le fichier CSV " . $file_user->getName() . " n'est pas correcte !" );
             }
