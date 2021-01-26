@@ -22,7 +22,7 @@ class AdminBreakController extends AbstractController
      */
     public function break(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_N1');
 
         $entityManager = $this->getDoctrine()->getManager();
 
