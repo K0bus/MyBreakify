@@ -36,10 +36,34 @@ class AdminRecoveryController extends AbstractController
         foreach ($recoveries as $key => $value) {
             $user = array();
             $user["data"] = $value->getUserId();
+
             $user["recovery_data"]["nb_7d"] = 0;
             $user["recovery_data"]["nb_30d"] = 0;
             $user["recovery_data"]["time_7d"] = 0;
             $user["recovery_data"]["time_30d"] = 0;
+
+            $user_recoveries = $this->getDoctrine()
+            ->getManager()
+            ->createQuery('SELECT e FROM AppBundle:UserRecovery e WHERE e.date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW();')
+            ->getResult();
+
+            foreach ($user_recoveries as $k2 => $v2) {
+                $user["recovery_data"]["nb_30d"] = $user["recovery_data"]["nb_30d"] + 1;
+                if($v2->getStatus() == 1)
+                    $user["recovery_data"]["time_30d"] = $user["recovery_data"]["time_30d"] + ($v2->getTimeFrom->diff($v2->getTimeTo())->i);    
+            }
+
+            $user_recoveries = $this->getDoctrine()
+            ->getManager()
+            ->createQuery('SELECT e FROM AppBundle:UserRecovery e WHERE e.date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW();')
+            ->getResult();
+
+            foreach ($user_recoveries as $k2 => $v2) {
+                $user["recovery_data"]["nb_7d"] = $user["recovery_data"]["nb_7d"] + 1;
+                if($v2->getStatus() == 1)
+                    $user["recovery_data"]["time_7d"] = $user["recovery_data"]["time_7d"] + ($v2->getTimeFrom->diff($v2->getTimeTo())->i);    
+            }
+
             if(!array_key_exists($user["data"]->getId(), $users))
                 $users[$user["data"]->getId()] = $user;
         }
