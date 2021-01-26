@@ -49,7 +49,7 @@ class AdminRecoveryController extends AbstractController
                                   ->where('r.date >= :date')
                                   ->setParameter('date', new DateTime("-30 days"))
                                   ->getQuery()
-                                  ->getAll();
+                                  ->getResult();
 
             foreach ($user_recoveries as $k2 => $v2) {
                 $user["recovery_data"]["nb_30d"] = $user["recovery_data"]["nb_30d"] + 1;
@@ -64,7 +64,7 @@ class AdminRecoveryController extends AbstractController
                                   ->where('r.date >= :date')
                                   ->setParameter('date', new DateTime("-7 days"))
                                   ->getQuery()
-                                  ->getAll();
+                                  ->getResult();
 
             foreach ($user_recoveries as $k2 => $v2) {
                 $user["recovery_data"]["nb_7d"] = $user["recovery_data"]["nb_7d"] + 1;
