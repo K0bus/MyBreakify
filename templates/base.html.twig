@@ -25,12 +25,12 @@
           <a href="#" class="brand-logo center"><img src="/img/logo_white.png" height="60px"></a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a href="/break"><i class="material-icons left">local_cafe</i>Pause</a></li>
-            <li><a href="/recovery"><i class="material-icons left">schedule</i>Récupération</a></li>
+            <li><a href="/break"><i class="fas fa-coffee left"></i>Pause</a></li>
+            <li><a href="/recovery"><i class="fas fa-clock left"></i>Récupération</a></li>
           </ul>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/account"><i class="fas fa-user left"></i>{{app.user.firstname}}, {{app.user.lastname}}</a></li>
-            <li><a href="/logout"><i class="material-icons right">lock</i>Déconnexion</a></li>
+            <li><a href="/logout"><i class="fas fa-sign-out-alt"></i>Déconnexion</a></li>
           </ul>
         </div>
         {% if is_granted('ROLE_N1') or is_granted('ROLE_ADMIN') %}
