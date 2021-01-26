@@ -27,13 +27,13 @@
                     <td>Le <b>{{recovery.date|date("d/m/Y")}}</b> de <b>{{recovery.timefrom|date("H:i")}}</b> à <b>{{ recovery.timeto|date("H:i") }}</b></td>
                     <td>{{minutes}} minutes</td>
                     <td>{{recovery.comment}}</td>
-                    {% if recovery.status = 0 %}
+                    {% if recovery.status == 0 %}
                         <td><i class="material-icons orange-text">timer</i></td>
-                    {% else if recovery.status = 1 %}
+                    {% else if recovery.status == 1 %}
                         <td><i class="material-icons green-text">check</i></td>
-                    {% else if recovery.status = 2 %}
+                    {% else if recovery.status == 2 %}
                         <td><i class="material-icons red-text">close</i></td>
-                    {% else if recovery.status = 3 %}
+                    {% else if recovery.status == 3 %}
                         <td><i class="material-icons gray-text">close</i></td>
                     {% endif %}
                     <td><i class="material-icons orange-text">timer</i></td>
