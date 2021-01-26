@@ -84,5 +84,24 @@ class AdminRecoveryController extends AbstractController
             "users" => $users
         ]);
     }
+    /**
+     * @Route("/admin/recovery/edit/{id<\d+>?1}", name="app_admin_recovery_edit", requirements={"id"="\d+"})
+     */
+    public function break_remove(int $id, Request $request, UserInterface $user): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_N1');
 
+        $userRecovery = $this->getDoctrine()
+            ->getRepository(UserRecovery::class)
+            ->find($id);
+        
+        $userRecovery->setStatus($request->request->get('status'))
+        $userRecovery->setTimeFrom($request->request->get('timeFrom'))
+        $userRecovery->setTimeTo($request->request->get('timeTo'))
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->update($userRecovery);
+        $entityManager->flush();
+        return $this->redirectToRoute("app_admin_recovery");
+    }
 }
