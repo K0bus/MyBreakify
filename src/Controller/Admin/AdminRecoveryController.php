@@ -91,7 +91,9 @@ class AdminRecoveryController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_N1');
 
-        $userRecovery = $this->getDoctrine()
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userRecovery = $entityManager
             ->getRepository(UserRecovery::class)
             ->find($id);
         
@@ -99,8 +101,6 @@ class AdminRecoveryController extends AbstractController
         $userRecovery->setTimeFrom(new DateTime($request->request->get('timeFrom')));
         $userRecovery->setTimeTo(new DateTime($request->request->get('timeTo')));
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->update($userRecovery);
         $entityManager->flush();
         return $this->redirectToRoute("app_admin_recovery");
     }
