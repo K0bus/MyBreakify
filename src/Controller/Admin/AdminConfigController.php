@@ -41,7 +41,7 @@ class AdminConfigController extends AbstractController
                 if(!array_key_exists("hour", $data[1]) || !array_key_exists("date", $data[1]) || !array_key_exists("break", $data[1]) || 
                     !array_key_exists("recovery", $data[1]) || !array_key_exists("adm_break", $data[1]))
                 {
-                    array_push($errors, "Le fichier CSV " . $file_user->getClientOriginalName() . " n'est pas correcte !" );
+                    array_push($errors, "Le fichier CSV " . $file_break->getClientOriginalName() . " n'est pas correcte !" );
                 }
                 else
                 {
