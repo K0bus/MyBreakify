@@ -95,7 +95,7 @@ class AdminRecoveryController extends AbstractController
             ->getRepository(UserRecovery::class)
             ->find($id);
         
-        $userRecovery->setStatus($request->request->get('status'));
+        $userRecovery->setStatus(intval($request->request->get('status')));
         $userRecovery->setTimeFrom($request->request->get('timeFrom'));
         $userRecovery->setTimeTo($request->request->get('timeTo'));
 
