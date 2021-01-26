@@ -55,11 +55,11 @@
                     <label for="name">NOM, Prénom</label>
                 </div>
                 <div class="input-field col s6">
-                    <select>
-                    <option value="0" selected>En attente</option>
-                    <option value="1">Validée</option>
-                    <option value="2">Refusée</option>
-                    <option value="3">Annulée</option>
+                    <select name="status">
+                    <option value="0"{% if recovery.status == 0 %} selected{% endif %}>En attente</option>
+                    <option value="1"{% if recovery.status == 1 %} selected{% endif %}>Validée</option>
+                    <option value="2"{% if recovery.status == 2 %} selected{% endif %}>Refusée</option>
+                    <option value="3"{% if recovery.status == 3 %} selected{% endif %}>Annulée</option>
                     </select>
                     <label>Etat de la récupération</label>
                 </div>
