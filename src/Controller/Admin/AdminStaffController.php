@@ -57,7 +57,6 @@ class AdminStaffController extends AbstractController
                 );
             $user->setUsername($form->get('username')->getData());
             $user->setEmail($form->get('email')->getData());
-            $user->setRoles(array($form->get('roles')->getData()));
             $user->setFirstname($form->get('firstname')->getData());
             $user->setLastname($form->get('lastname')->getData());
 
