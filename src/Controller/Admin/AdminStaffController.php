@@ -50,7 +50,7 @@ class AdminStaffController extends AbstractController
             // encode the plain password
             if($form->get('password')->getData() != null && $form->get('password')->getData() != "")
             {
-                echo "Password edited !"
+                echo "Password edited !";
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
