@@ -58,10 +58,32 @@
     <i class="fas fa-info"></i>
   </a>
   <ul>
-    <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="Pause"><i class="fas fa-coffee left"></i></a></li>
-    <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-tooltip="Récupération"><i class="fas fa-clock left"></i></a></li>
+    <li><a class="btn-floating red tooltipped modal-trigger" href="#modal-break" data-position="left" data-tooltip="Pause"><i class="fas fa-coffee left"></i></a></li>
+    <li><a class="btn-floating yellow darken-1 tooltipped modal-trigger" href="#modal-recovery" data-position="left" data-tooltip="Récupération"><i class="fas fa-clock left"></i></a></li>
   </ul>
 </div>
+
+  <!-- Information pause -->
+  <div id="modal-break" class="modal">
+    <div class="modal-content">
+      <h4>Pause</h4>
+      <p>Explication pause</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Fermer</a>
+    </div>
+  </div>
+
+    <!-- Information récupération -->
+  <div id="modal-recovery" class="modal">
+    <div class="modal-content">
+      <h4>Récupération</h4>
+      <p>Explication récupération</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Fermer</a>
+    </div>
+  </div>
 
     <script>
       // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
