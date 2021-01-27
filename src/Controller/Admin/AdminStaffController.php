@@ -49,12 +49,15 @@ class AdminStaffController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             if($form->get('password')->getData() != null && $form->get('password')->getData() != "")
+            {
+                echo "Password edited !"
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $form->get('password')->getData()
                     )
                 );
+            }
             $user->setUsername($form->get('username')->getData());
             $user->setEmail($form->get('email')->getData());
             $user->setFirstname($form->get('firstname')->getData());
