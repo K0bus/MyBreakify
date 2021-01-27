@@ -31,9 +31,8 @@ class AdminRecoveryController extends AbstractController
 
         if($request->request->get('filter_date') != null)
         {
-            $date = new DateTime($request->request->get('status'));
+            $date = new DateTime($request->request->get('filter_date'));
         }  
-        var_dump($request->request->get('filter_date'));
 
         $recoveries = $this->getDoctrine()
         ->getRepository(UserRecovery::class)
