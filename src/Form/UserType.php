@@ -14,11 +14,11 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password', PasswordType::class, [
+            /*->add('password', PasswordType::class, [
                 "required" => false,
                 "empty_data" => "",
                 "help" => "Si aucun changement, laisser ce champs vide."
-            ])
+            ])*/
             ->add('email')
             ->add('firstname')
             ->add('lastname')
