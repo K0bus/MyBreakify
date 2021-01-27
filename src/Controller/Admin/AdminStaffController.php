@@ -48,18 +48,18 @@ class AdminStaffController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            if($form->get('password') != null || $form->get('password') != "")
+            if($form->get('password')->getData() != null || $form->get('password')->getData() != "")
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $form->get('password')->getData()
                     )
                 );
-            $user->setUsername($form->get('username'));
-            $user->setEmail($form->get('email'));
-            $user->setRoles(array($form->get('roles')));
-            $user->setFirstname($form->get('firstname'));
-            $user->setLastname($form->get('lastname'));
+            $user->setUsername($form->get('username')->getData());
+            $user->setEmail($form->get('email')->getData());
+            $user->setRoles(array($form->get('roles')->getData()));
+            $user->setFirstname($form->get('firstname')->getData());
+            $user->setLastname($form->get('lastname')->getData());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
