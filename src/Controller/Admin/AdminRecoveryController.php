@@ -27,10 +27,17 @@ class AdminRecoveryController extends AbstractController
         
         $entityManager = $this->getDoctrine()->getManager();
 
+        $date = new DateTime();
+
+        if($request->request->get('filter_date') != null)
+        {
+            $date = new DateTime($request->request->get('status'));
+        }   
+
         $recoveries = $this->getDoctrine()
         ->getRepository(UserRecovery::class)
         ->findBy([
-            "date" => new DateTime(),
+            "date" => $date,
         ]);
         $users = array();
         foreach ($recoveries as $key => $value) {
@@ -87,7 +94,7 @@ class AdminRecoveryController extends AbstractController
     /**
      * @Route("/admin/recovery/edit/{id<\d+>?1}", name="app_admin_recovery_edit", requirements={"id"="\d+"})
      */
-    public function break_remove(int $id, Request $request, UserInterface $user): Response
+    public function recovery_editor(int $id, Request $request, UserInterface $user): Response
     {
         $this->denyAccessUnlessGranted('ROLE_N1');
 
