@@ -4,6 +4,33 @@
 
 {% block body %}
 <div class="container">
-    
+            <div class="col m12">
+            <h2 class="center-align">Inscription</h2>
+            <div class="row">
+                {{ form_start(form) }}
+                    <div class="row">
+                        {{ form_row(form.username) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.firstname) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.lastname) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.plainPassword, {
+                            label: 'Password'
+                        }) }}
+                    </div>
+                    <div class="row">
+                        <div class="col m12">
+                            <p class="right-align">
+                                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Connexion</button>
+                            </p>
+                        </div>
+                    </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
 </div>
 {% endblock %}
