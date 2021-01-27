@@ -5,6 +5,28 @@
 {% block body %}
 <div class="container">
     <h2>Récupération</h2>
+      <div class="row">
+        <div class="col s12">
+            <div class="card-panel blue lighten-5">
+                <div class="row">
+                    <div class="col s2">
+                        <i class="fas fa-info"></i>
+                    </div>
+                    <div class="col s10">
+                        <span class="grey-text text-darken-2">
+                            Les demandes de récup sont toujours validé au dernier moment.
+                        </span><br>
+                        <span class="grey-text text-darken-2">
+                            Les chargés de flux reviendrons vers vous si votre récupération est validé.
+                        </span><br>
+                        <span>
+                            <a href="#modal-recovery" class="modal-trigger light-blue-text text-darken-4">Plus d'infos ici...</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <h4>Faire une demande de récupération</h4>
     {{ form_start(form) }}
         <h5><b>Date</b></h5>
