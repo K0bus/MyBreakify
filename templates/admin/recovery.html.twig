@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container">
     <h2>Gestion des récupérations</h2>
-        <form action="POST">
+        <form method="POST">
             <input type="text" class="datepicker" name="filter_date">
             <button class="btn" type="submit">Envoyer</button>
         </form>
@@ -109,20 +109,44 @@
 {% endblock %}
 
 
-{% block js %}
-        <script>
-      $(document).ready(function(){
+  {% block js %}
+  <script>
+    $(document).ready(function(){
         inter_fr = {
+          labelMonthNext: 'Mois suivant',
+          labelMonthPrev: 'Mois précédent',
+          labelMonthSelect: 'Selectionner le mois',
+          labelYearSelect: 'Selectionner une année',
+          months: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+          monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+          weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+          weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+          weekdaysLetter: [ 'D', 'L', 'Ma', 'Me', 'J', 'V', 'S' ],
+          today: 'Aujourd\'hui',
+          clear: 'Réinitialiser',
           close: 'Fermer',
           cancel: 'Annuler',
           done: 'Valider',
         }
-        $('.modal').modal();
-        $('select').formSelect();
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+        date = new Date();
+        $('.datepicker').datepicker({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 2, // Creates a dropdown of 15 years to control year
+            minDate: date,
+            maxDate: date.addDays(7),
+            i18n: inter_fr,
+        		format: 'dd/mm/yyyy'
+
+        });
         $('.timepicker').timepicker({
           i18n: inter_fr,
           twelveHour: false,
         });
       });
-    </script>
-{% endblock %}
+  </script>
+  {% endblock %}

@@ -54,21 +54,3 @@
     </ul>
   </div>
 {% endblock %}
-
-{% block js %}
-        <script>
-      $(document).ready(function(){
-        inter_fr = {
-          close: 'Fermer',
-          cancel: 'Annuler',
-          done: 'Valider',
-        }
-        $('.modal').modal();
-        $('select').formSelect();
-        $('.timepicker').timepicker({
-          i18n: inter_fr,
-          twelveHour: false,
-        });
-      });
-    </script>
-{% endblock %}
