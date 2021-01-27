@@ -4,8 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\UserBreak;
-use App\Form\AdminUserBreakType;
-use App\Form\UserBreakType;
+use App\Form\UserType;
 use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
