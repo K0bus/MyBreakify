@@ -52,7 +52,7 @@ class AdminStaffController extends AbstractController
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
-                        $form->get('plainPassword')->getData()
+                        $form->get('password')->getData()
                     )
                 );
             $user->setUsername($form->get('username'));
