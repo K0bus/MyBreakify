@@ -117,7 +117,7 @@ class AdminBreakController extends AbstractController
     /**
      * @Route("/admin/break/remove/{id<\d+>?1}", name="app_admin_break_remove", requirements={"id"="\d+"})
      */
-    public function break_remove(int $id, Request $request, UserInterface $user): Response
+    public function break_remove(int $id, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_N1');
 
