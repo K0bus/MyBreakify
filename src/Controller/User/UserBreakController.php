@@ -44,7 +44,7 @@ class UserBreakController extends AbstractController
         while ($temp <= $endDate)
         {
             //TODO : Get hour
-            $now = new DateTime("09:00");
+            $now = new DateTime("now");
             $now->sub(new DateInterval('PT5M'));
 
             $breaks = $this->getDoctrine()
