@@ -5,6 +5,25 @@
 {% block body %}
 <div class="container">
     <h2>Mes pauses</h2>
+    
+    <div class="row">
+        <div class="col s12 m5">
+        <div class="card-panel blue accent-1">
+            <div class="row">
+                <div class="col s2">
+                    <i class="fas fa-info"></i>
+                </div>
+                <div class="col s10">
+                    <span class="white-text">
+                        Les pauses doivent être planifié dans cette outil.
+                        Pour rappel : 50% de votre pause doit être pris avant 17h.
+                        <a href="#modal-break" class="modal-trigger">Plus d'infos ici...</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
     <!-- Formulaire de demande de pause -->
     <h4>Faire une demande de pauses</h4>
     {{ form_start(form) }}
