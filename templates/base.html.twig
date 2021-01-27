@@ -52,13 +52,18 @@
       {% block body %}{% endblock %}
 
 
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red">
+    <i class="fas fa-info"></i>
+  </a>
+  <ul>
+    <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="Pause"><i class="fas fa-coffee left"></i></a></li>
+    <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-tooltip="Récupération"><i class="fas fa-clock left"></i></a></li>
+  </ul>
+</div>
+
     <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, options);
-      });
-
       // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
       // var collapsibleElem = document.querySelector('.collapsible');
       // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
@@ -70,6 +75,7 @@
         $('select').formSelect();
         $('.collapsible').collapsible();
         $('.modal').modal();
+        $('.fixed-action-btn').floatingActionButton();
       });
     </script>
     {% block js %}{% endblock %}
