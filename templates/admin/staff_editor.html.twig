@@ -5,11 +5,14 @@
 {% block body %}
 <div class="container">
             <div class="col m12">
-            <h2 class="center-align">Inscription</h2>
+            <h2 class="center-align">Edition d'utilisateur</h2>
             <div class="row">
                 {{ form_start(form) }}
                     <div class="row">
                         {{ form_row(form.username) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.email) }}
                     </div>
                     <div class="row">
                         {{ form_row(form.firstname) }}
@@ -19,7 +22,8 @@
                     </div>
                     <div class="row">
                         {{ form_row(form.password, {
-                            label: 'Password'
+                            label: 'Password',
+                            value: ''
                         }) }}
                     </div>
                     <div class="row">
