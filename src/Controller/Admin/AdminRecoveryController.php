@@ -9,6 +9,7 @@ use App\Form\AdminUserBreakType;
 use App\Form\UserBreakType;
 use DateInterval;
 use DateTime;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -111,6 +112,24 @@ class AdminRecoveryController extends AbstractController
 
         $entityManager->flush();
         return $this->redirectToRoute("app_admin_recovery");
+    }
+        /**
+     * @Route("/admin/recovery/pdf/{id<\d+>?1}", name="app_recovery_pdf", requirements={"id"="\d+"})
+     */
+    public function recovery_pdf_html(int $id, Request $request, UserInterface $user): Response
+    {
+        $recovery = $this->getDoctrine()
+            ->getRepository(UserRecovery::class)
+            ->find($id);
+
+        $html = $this->render('admin/recovery_pdf.html.twig', [
+            "recovery" => $recovery
+        ]);
+
+        return new PdfResponse(
+            $knpSnappyPdf->getOutputFromHtml($html),
+            'recup.pdf'
+        );
     }
         /**
      * @Route("/admin/recovery/pdf/html/{id<\d+>?1}", name="app_recovery_pdf_html", requirements={"id"="\d+"})
