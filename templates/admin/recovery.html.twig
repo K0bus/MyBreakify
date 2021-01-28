@@ -141,5 +141,8 @@
         	format: 'dd/mm/yyyy',
         });
       });
+      $( "#filterInput" ).change(function() {
+        $("#filterForm").submit()
+      });
   </script>
   {% endblock %}
