@@ -36,7 +36,7 @@ div.cls_012{font-family:"Verdana",serif;font-size:6.0px;color:rgb(255,255,255);f
 <div style="position:absolute;left:209.57px;top:50.68px" class="cls_004"><span class="cls_004">Collaborateur</span></div>
 <div style="position:absolute;left:354.79px;top:53.92px" class="cls_004"><span class="cls_004">19/11/2019</span></div>
 <div style="position:absolute;left:227.93px;top:85.00px" class="cls_007"><span class="cls_007">Informations Générales et Validation</span></div>
-<div style="position:absolute;left:63.84px;top:96.66px" class="cls_008"><span class="cls_008">Date du jour : </span><span class="cls_009">{{ 'now'|date('dd/mm/YYY') }}</span></div>
+<div style="position:absolute;left:63.84px;top:96.66px" class="cls_008"><span class="cls_008">Date du jour : </span><span class="cls_009">{{ 'now'|date('d/m/Y') }}</span></div>
 <div style="position:absolute;left:63.84px;top:108.42px" class="cls_008"><span class="cls_008">Nom : </span><span class="cls_009">{{ recovery.userid.lastname }}</span></div>
 <div style="position:absolute;left:426.19px;top:108.42px" class="cls_008"><span class="cls_008">Projet / Service : EDF</span></div>
 <div style="position:absolute;left:63.84px;top:120.18px" class="cls_008"><span class="cls_008">Prénom : </span><span class="cls_009">{{ recovery.userid.lastname }}</span></div>
@@ -63,15 +63,15 @@ div.cls_012{font-family:"Verdana",serif;font-size:6.0px;color:rgb(255,255,255);f
 <div style="position:absolute;left:254.45px;top:353.49px" class="cls_008"><span class="cls_008">Demande période d’absence</span></div>
 <div style="position:absolute;left:63.84px;top:358.41px" class="cls_008"><span class="cls_008">récupérer</span></div>
 <div style="position:absolute;left:492.34px;top:358.41px" class="cls_008"><span class="cls_008">après récup.</span></div>
-<div style="position:absolute;left:141.26px;top:370.53px" class="cls_008"><span class="cls_008">Date : </span><span class="cls_009">{{ recovery.date|date('dd/mm/YYY') }}</span></div>
+<div style="position:absolute;left:141.26px;top:370.53px" class="cls_008"><span class="cls_008">Date : </span><span class="cls_009">{{ recovery.date|date('d/m/Y') }}</span></div>
 <div style="position:absolute;left:141.26px;top:382.29px" class="cls_008"><span class="cls_008">Récupération :</span></div>
-<div style="position:absolute;left:141.26px;top:393.93px" class="cls_008"><span class="cls_008">De : </span><span class="cls_009">{{ recovery.timeFrom|date('HH:ii') }}</span></div>
-<div style="position:absolute;left:141.26px;top:405.69px" class="cls_008"><span class="cls_008">A : </span><span class="cls_009">{{ recovery.timeTo|date('HH:ii') }}</span></div>
+<div style="position:absolute;left:141.26px;top:393.93px" class="cls_008"><span class="cls_008">De : </span><span class="cls_009">{{ recovery.timeFrom|date('H:i') }}</span></div>
+<div style="position:absolute;left:141.26px;top:405.69px" class="cls_008"><span class="cls_008">A : </span><span class="cls_009">{{ recovery.timeTo|date('H:i') }}</span></div>
 <div style="position:absolute;left:141.26px;top:417.45px" class="cls_008"><span class="cls_008">Total récupéré : </span><span class="cls_009">%Minutes%</span></div>
 <div style="position:absolute;left:63.84px;top:429.69px" class="cls_008"><span class="cls_008">Signature du demandeur :</span></div>
 <div style="position:absolute;left:305.57px;top:429.69px" class="cls_008"><span class="cls_008">Validation hiérarchique :</span></div>
 <div style="position:absolute;left:305.81px;top:441.33px" class="cls_008"><span class="cls_008">Nom : </span><span class="cls_009">{{ app.user.lastname }}</span></div>
-<div style="position:absolute;left:305.81px;top:453.09px" class="cls_008"><span class="cls_008">Date : </span><span class="cls_009">{{ 'now'|date('dd/mm/YYY') }}</span></div>
+<div style="position:absolute;left:305.81px;top:453.09px" class="cls_008"><span class="cls_008">Date : </span><span class="cls_009">{{ 'now'|date('d/m/Y') }}</span></div>
 <div style="position:absolute;left:305.81px;top:464.87px" class="cls_008"><span class="cls_008">Signature :</span></div>
 <div style="position:absolute;left:241.49px;top:495.95px" class="cls_007"><span class="cls_007">Demande d’échange d’horaires</span></div>
 <div style="position:absolute;left:222.41px;top:507.71px" class="cls_008"><span class="cls_008">(Possible uniquement sur un même service)</span></div>
