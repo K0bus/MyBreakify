@@ -116,7 +116,7 @@ class AdminRecoveryController extends AbstractController
         /**
      * @Route("/admin/recovery/pdf/{id<\d+>?1}", name="app_recovery_pdf", requirements={"id"="\d+"})
      */
-    public function recovery_pdf_html(int $id, Request $request, UserInterface $user): Response
+    public function recovery_pdf(int $id, Request $request, UserInterface $user): Response
     {
         $recovery = $this->getDoctrine()
             ->getRepository(UserRecovery::class)
