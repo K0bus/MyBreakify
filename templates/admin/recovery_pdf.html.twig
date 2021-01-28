@@ -63,10 +63,10 @@ div.cls_012{font-family:"Verdana",serif;font-size:6.0px;color:rgb(255,255,255);f
 <div style="position:absolute;left:254.45px;top:353.49px" class="cls_008"><span class="cls_008">Demande période d’absence</span></div>
 <div style="position:absolute;left:63.84px;top:358.41px" class="cls_008"><span class="cls_008">récupérer</span></div>
 <div style="position:absolute;left:492.34px;top:358.41px" class="cls_008"><span class="cls_008">après récup.</span></div>
-<div style="position:absolute;left:141.26px;top:370.53px" class="cls_008"><span class="cls_008">Date : </span><span class="cls_009">{{ recovery.date }}</span></div>
+<div style="position:absolute;left:141.26px;top:370.53px" class="cls_008"><span class="cls_008">Date : </span><span class="cls_009">{{ recovery.date|date('dd/mm/YYY') }}</span></div>
 <div style="position:absolute;left:141.26px;top:382.29px" class="cls_008"><span class="cls_008">Récupération :</span></div>
-<div style="position:absolute;left:141.26px;top:393.93px" class="cls_008"><span class="cls_008">De : </span><span class="cls_009">{{ recovery.timeFrome }}</span></div>
-<div style="position:absolute;left:141.26px;top:405.69px" class="cls_008"><span class="cls_008">A : </span><span class="cls_009">{{ recovery.timeTo }}</span></div>
+<div style="position:absolute;left:141.26px;top:393.93px" class="cls_008"><span class="cls_008">De : </span><span class="cls_009">{{ recovery.timeFrome|date('HH:ii') }}</span></div>
+<div style="position:absolute;left:141.26px;top:405.69px" class="cls_008"><span class="cls_008">A : </span><span class="cls_009">{{ recovery.timeTo|date('HH:ii') }}</span></div>
 <div style="position:absolute;left:141.26px;top:417.45px" class="cls_008"><span class="cls_008">Total récupéré : </span><span class="cls_009">%Minutes%</span></div>
 <div style="position:absolute;left:63.84px;top:429.69px" class="cls_008"><span class="cls_008">Signature du demandeur :</span></div>
 <div style="position:absolute;left:305.57px;top:429.69px" class="cls_008"><span class="cls_008">Validation hiérarchique :</span></div>
