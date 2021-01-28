@@ -118,7 +118,8 @@ class AdminBreakController extends AbstractController
         }
         return $this->render('admin/break.html.twig', [
             "time_steps" => $time_step,
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "date_filter" => $date
         ]);
     }
     /**
