@@ -137,13 +137,12 @@
         $('.datepicker').datepicker({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 2, // Creates a dropdown of 15 years to control year
+            i18n: inter_fr,
+        	format: 'dd/mm/yyyy',
             onSelect : function (dateText, inst) {
                 $('#filterInput').val(dateText);
                 $('#filterForm').submit();
             },
-            i18n: inter_fr,
-        		format: 'dd/mm/yyyy'
-
         });
         $('.timepicker').timepicker({
           i18n: inter_fr,
