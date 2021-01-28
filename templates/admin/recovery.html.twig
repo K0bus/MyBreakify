@@ -139,14 +139,6 @@
             selectYears: 2, // Creates a dropdown of 15 years to control year
             i18n: inter_fr,
         	format: 'dd/mm/yyyy',
-            onSelect : function (dateText, inst) {
-                $('#filterInput').val(dateText);
-                $('#filterForm').submit();
-            },
-        });
-        $('.timepicker').timepicker({
-          i18n: inter_fr,
-          twelveHour: false,
         });
       });
   </script>
