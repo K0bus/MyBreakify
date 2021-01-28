@@ -6,7 +6,7 @@
 <div class="container">
     <h2>Gestion des récupérations</h2>
         <form method="POST">
-            <input type="text" class="datepicker" name="filter_date">
+            <input type="text" class="datepicker" name="filter_date" value="{{ date_filter }}">
             <button class="btn" type="submit">Envoyer</button>
         </form>
 
@@ -137,8 +137,6 @@
         $('.datepicker').datepicker({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 2, // Creates a dropdown of 15 years to control year
-            minDate: date,
-            maxDate: date.addDays(7),
             i18n: inter_fr,
         		format: 'dd/mm/yyyy'
 
