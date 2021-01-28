@@ -5,6 +5,9 @@
 {% block body %}
 <div class="container">
     <h2>Gestion des pauses</h2>
+    <form method="POST" id="filterForm">
+      <input type="text" class="datepicker" name="filter_date" value="{{ date_filter|date("d/m/Y") }}" id="filterInput">
+    </form>
     <a class="waves-effect waves-light btn modal-trigger" style="width:100%; marin-bottom:20px;" href="#modal1">Ajouter une pause</a>
     <div class="row">
         <div class="col m6">
@@ -62,3 +65,41 @@
           
 </div>
 {% endblock %}
+
+  {% block js %}
+  <script>
+    $(document).ready(function(){
+        inter_fr = {
+          labelMonthNext: 'Mois suivant',
+          labelMonthPrev: 'Mois précédent',
+          labelMonthSelect: 'Selectionner le mois',
+          labelYearSelect: 'Selectionner une année',
+          months: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+          monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+          weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+          weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+          weekdaysLetter: [ 'D', 'L', 'Ma', 'Me', 'J', 'V', 'S' ],
+          today: 'Aujourd\'hui',
+          clear: 'Réinitialiser',
+          close: 'Fermer',
+          cancel: 'Annuler',
+          done: 'Valider',
+        }
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+        date = new Date();
+        $('.datepicker').datepicker({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 2, // Creates a dropdown of 15 years to control year
+            i18n: inter_fr,
+        	format: 'dd/mm/yyyy',
+        });
+      });
+      $( "#filterInput" ).change(function() {
+        $("#filterForm").submit()
+      });
+  </script>
+  {% endblock %}

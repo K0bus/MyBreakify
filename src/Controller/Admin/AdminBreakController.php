@@ -67,6 +67,13 @@ class AdminBreakController extends AbstractController
         $temp = $startDate;
 
         $errors = array();
+        
+        $date = new DateTime();
+
+        if($request->request->get('filter_date') != null)
+        {
+            $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
+        }  
 
         while ($temp <= $endDate)
         {
@@ -74,7 +81,7 @@ class AdminBreakController extends AbstractController
             ->getRepository(UserBreak::class)
             ->findBy([
                 "time" => $temp,
-                "date" => new DateTime(),
+                "date" => $date,
             ]);
 
             $time_param = $this->getDoctrine()
