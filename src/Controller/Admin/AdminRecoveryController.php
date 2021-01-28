@@ -31,7 +31,7 @@ class AdminRecoveryController extends AbstractController
 
         if($request->request->get('filter_date') != null)
         {
-            $date = DateTime::createFromFormat("dd/mm/YYYY", $request->request->get('filter_date'));
+            $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
         }  
 
         $recoveries = $this->getDoctrine()
