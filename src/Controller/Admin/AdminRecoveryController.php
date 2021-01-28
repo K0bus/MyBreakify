@@ -112,4 +112,16 @@ class AdminRecoveryController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute("app_admin_recovery");
     }
+        /**
+     * @Route("/admin/recovery/pdf/html/{id<\d+>?1}", name="app_recovery_pdf_html", requirements={"id"="\d+"})
+     */
+    public function recovery_pdf_html(int $id, Request $request, UserInterface $user): Response
+    {
+        $recovery = $this->getDoctrine()
+            ->getRepository(UserRecovery::class)
+            ->find($id);
+        return $this->render('admin/recovery_pdf.html.twig', [
+            "recovery" => $recovery
+        ]);
+    }
 }
