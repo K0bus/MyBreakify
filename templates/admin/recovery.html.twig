@@ -6,7 +6,7 @@
 <div class="container">
     <h2>Gestion des récupérations</h2>
         <form method="POST" id="filterForm">
-            <input type="text" class="datepicker" name="filter_date" value="{{ date_filter|date("d/m/Y") }}">
+            <input type="text" class="datepicker" name="filter_date" value="{{ date_filter|date("d/m/Y") }}" id="filterInput">
             <button class="btn" type="submit">Envoyer</button>
         </form>
 
@@ -138,7 +138,8 @@
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 2, // Creates a dropdown of 15 years to control year
             onSelect : function (dateText, inst) {
-                $('#filterForm').submit(); // <-- SUBMIT
+                $('#filterInput').val(dateText);
+                $('#filterForm').submit();
             },
             i18n: inter_fr,
         		format: 'dd/mm/yyyy'
