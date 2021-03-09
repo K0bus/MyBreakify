@@ -29,6 +29,21 @@
                     </div>
                 {{ form_end(form) }}
             </div>
+            <h2 class="center-align">Edition du mot de passe</h2>
+            <div class="row">
+                {{ form_start(passForm) }}
+                    <div class="row">
+                        {{ form_row(passForm.password) }}
+                    </div>
+                    <div class="row">
+                        <div class="col m12">
+                            <p class="right-align">
+                                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Sauvegarder</button>
+                            </p>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
         </div>
 </div>
 {% endblock %}

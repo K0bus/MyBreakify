@@ -44,7 +44,9 @@ class AdminStaffController extends AbstractController
             ]
         );
         $form = $this->createForm(UserType::class, $user);
+        $passForm = $this->createForm(UserPasswordType::class, $user);
         $form->handleRequest($request);
+        $passForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -67,8 +69,21 @@ class AdminStaffController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
         }
+        if($passForm->isSubmitted() && $passForm->isValid())
+        {
+            if($passForm->get('password')->getData() != null && $passForm->get('password')->getData() != "")
+            {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $passForm->get('password')->getData()
+                    )
+                );
+            }
+        }
         return $this->render('admin/staff_editor.html.twig',[
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "passForm" => $passForm->createView()
         ]);
     }
 
