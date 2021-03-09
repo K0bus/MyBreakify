@@ -80,6 +80,9 @@ class AdminStaffController extends AbstractController
                         $passForm->get('password')->getData()
                     )
                 );
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
             }
         }
         return $this->render('admin/staff_editor.html.twig',[
