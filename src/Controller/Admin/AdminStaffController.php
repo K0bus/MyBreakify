@@ -50,17 +50,13 @@ class AdminStaffController extends AbstractController
         $passForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            /*if($form->get('password')->getData() != null && $form->get('password')->getData() != "")
-            {
-                echo "Password edited !";
-                $user->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
+            $user = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(
+                    [
+                        "id" => $id
+                    ]
                 );
-            }*/
             $user->setUsername($form->get('username')->getData());
             $user->setEmail($form->get('email')->getData());
             $user->setFirstname($form->get('firstname')->getData());
@@ -72,6 +68,13 @@ class AdminStaffController extends AbstractController
         }
         if($passForm->isSubmitted() && $passForm->isValid())
         {
+            $user = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(
+                    [
+                        "id" => $id
+                    ]
+                );
             if($passForm->get('password')->getData() != null && $passForm->get('password')->getData() != "")
             {
                 $user->setPassword(
