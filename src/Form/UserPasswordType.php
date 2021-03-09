@@ -16,7 +16,6 @@ class UserPasswordType extends AbstractType
             ->add('password', PasswordType::class, [
                 "required" => false,
                 "empty_data" => "",
-                "help" => "Si aucun changement, laisser ce champs vide."
             ])
         ;
     }
