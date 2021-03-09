@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\UserBreak;
 use App\Form\UserType;
+use App\Form\UserPasswordType;
 use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
