@@ -48,7 +48,7 @@ class AdminStaffController extends AbstractController
         $passForm = $this->createForm(UserPasswordType::class, $user);
         $form->handleRequest($request);
         $passForm->handleRequest($request);
-
+        $success = array();
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getDoctrine()
                 ->getRepository(User::class)
@@ -65,6 +65,7 @@ class AdminStaffController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            array_push($success, "L'utilisateur est édité avec succès !");
         }
         if($passForm->isSubmitted() && $passForm->isValid())
         {
@@ -87,10 +88,12 @@ class AdminStaffController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
+            array_push($success, "Le mot de passe est edité avec succès !");
         }
         return $this->render('admin/staff_editor.html.twig',[
             "form" => $form->createView(),
-            "passForm" => $passForm->createView()
+            "passForm" => $passForm->createView(),
+            "success" => $success
         ]);
     }
 

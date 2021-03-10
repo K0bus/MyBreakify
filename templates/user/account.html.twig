@@ -22,4 +22,12 @@
             </div>
         </div>
 </div>
+
+<script>
+    {% if success %}
+        {% for success_m in success %}
+            M.toast({html: '{{ success_m }}'})
+        {% endfor %}
+    {% endif %}
+</script>
 {% endblock %}
