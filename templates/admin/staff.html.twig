@@ -24,11 +24,11 @@
               <td>{{user.firstname}}, {{user.lastname}}</td>
               <td>{% if user.n1 %} {{user.firstname}} {% endif %}</td>
               <td>
-                {%if "ROLE_SUPER_ADMIN" in user.roles %}
+                {% if "ROLE_SUPER_ADMIN" in user.roles %}
                   Développeur
-                {% else if "ROLE_ADMIN" in user.roles %}
+                {% elseif "ROLE_ADMIN" in user.roles %}
                   Administrateur
-                {% else if "ROLE_N1" in user.roles %}
+                {% elseif "ROLE_N1" in user.roles %}
                   Responsable
                 {% else %}
                   Utilisateur
