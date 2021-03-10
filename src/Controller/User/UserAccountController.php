@@ -3,7 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\UserBreak;
-use App\Form\UserBreakType;
+use App\Form\UserPasswordType;
 use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
