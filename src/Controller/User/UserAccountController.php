@@ -26,13 +26,6 @@ class UserAccountController extends AbstractController
 
         if($passForm->isSubmitted() && $passForm->isValid())
         {
-            $user = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy(
-                    [
-                        "id" => $id
-                    ]
-                );
             if($passForm->get('password')->getData() != null && $passForm->get('password')->getData() != "")
             {
                 $user->setPassword(
