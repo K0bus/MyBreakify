@@ -24,17 +24,15 @@
               <td>{{user.firstname}}, {{user.lastname}}</td>
               <td>{% if user.n1 %} {{user.firstname}} {% endif %}</td>
               <td>
-              {{ for role in user.roles }}
-                {{ if "ROLE_SUPER_ADMIN" = role }}
+                {%if "ROLE_SUPER_ADMIN" in user.roles %}
                   Développeur
-                {{ else if "ROLE_ADMIN" = role }}
+                {% else if "ROLE_ADMIN" in user.roles %}
                   Administrateur
-                {{ else if "ROLE_N1" = role }}
+                {% else if "ROLE_N1" in user.roles %}
                   Responsable
-                {{ else }}
+                {% else %}
                   Utilisateur
-                {{ endif }},
-              {{ endfor }}
+                {% endif %}
               </td>
               <td><i class="material-icons red-text">close</i></td>
               <td><a href="staff/edit/{{user.id}}"><i class="material-icons">edit</i></a></td>
