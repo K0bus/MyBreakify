@@ -24,27 +24,17 @@
               <td>{{user.firstname}}, {{user.lastname}}</td>
               <td>{% if user.n1 %} {{user.firstname}} {% endif %}</td>
               <td>
-              {{ if user.roles is iterable }}
-                {{ if "ROLE_SUPER_ADMIN" in user.roles }}
+              {{ for role in user.roles }}
+                {{ if "ROLE_SUPER_ADMIN" = role }}
                   Développeur
-                {{ else if "ROLE_ADMIN" in user.roles }}
+                {{ else if "ROLE_ADMIN" = role }}
                   Administrateur
-                {{ else if "ROLE_N1" in user.roles }}
+                {{ else if "ROLE_N1" = role }}
                   Responsable
                 {{ else }}
                   Utilisateur
-                {{ endif }}
-              {{ else }}
-                {{ if "ROLE_SUPER_ADMIN" = user.roles }}
-                  Développeur
-                {{ else if "ROLE_ADMIN" = user.roles }}
-                  Administrateur
-                {{ else if "ROLE_N1" = user.roles }}
-                  Responsable
-                {{ else }}
-                  Utilisateur
-                {{ endif }}
-              {{ endif }}
+                {{ endif }},
+              {{ endfor }}
               </td>
               <td><i class="material-icons red-text">close</i></td>
               <td><a href="staff/edit/{{user.id}}"><i class="material-icons">edit</i></a></td>
