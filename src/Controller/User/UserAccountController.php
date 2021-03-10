@@ -18,7 +18,7 @@ class UserAccountController extends AbstractController
     /**
      * @Route("/account", name="app_account")
      */
-    public function home(Request $request, UserInterface $user): Response
+    public function home(Request $request, UserInterface $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
 
         $passForm = $this->createForm(UserPasswordType::class, $user);
