@@ -22,7 +22,12 @@ class AdminExportController extends AbstractController
      */
     public function break(Request $request): Response
     {
+        $errors = array();
+        array_push($errors, "Export actuellement non disponible.");
+
         $this->denyAccessUnlessGranted('ROLE_N1');
-        return $this->render('admin/export.html.twig');
+        return $this->render('admin/export.html.twig', [
+            'errors' => $errors
+        ]);
     }
 }
