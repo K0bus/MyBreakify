@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
-class AdminBreakController extends AbstractController
+class AdminExportController extends AbstractController
 {
     /**
      * @Route("/admin/export", name="app_admin_export")
