@@ -40,11 +40,14 @@ class AdminExportController extends AbstractController
                     ->setParameter('start', $start)
                     ->setParameter('end', $end)
                     ->getResult();
-                header('Content-Type: text/csv; charset=utf-8');
-                header('Content-Disposition: attachment; filename="FooBarFileName_' . date('Ymd') . '.csv"');
-                header("Pragma: no-cache");
-                header("Expires: 0");
-                $this->outputCSV($breaks);
+                    $rows = array();
+                    foreach ($breaks as $break) {
+                        $data = array($break->getId(), $break->getName(), $break->getTime()->format('Y-m-d H:i:s'));
+                
+                        $rows[] = implode(',', $data);
+                    }
+                    $content = implode("\n", $rows);
+                    $response = new Response($content);
             }
         }
 
