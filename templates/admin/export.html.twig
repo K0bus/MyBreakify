@@ -6,10 +6,10 @@
     <div class="container">
       <h2>Configuration</h2>
       <div class="row">
-        <h4>Imports</h4>
+        <h4>Export</h4>
         <div class="row">
-          <h5>Pauses / Récup</h5>
-            <form action="/admin/settings" method="POST" enctype="multipart/form-data">
+          <h5>Pauses</h5>
+            <form action="/admin/export" method="POST" enctype="multipart/form-data">
                 <div class="input-field col s12">
                     <label for="filterInputStart">Date de début</label>
                     <input type="text" class="datepicker" name="filter_date_start" value="{{ "now"|date("d/m/Y") }}" id="filterInputStart">
@@ -18,6 +18,22 @@
                     <label for="filterInputEnd">Date de fin</label>
                     <input type="text" class="datepicker" name="filter_date_end" value="{{ "now"|date("d/m/Y") }}" id="filterInputEnd">
                 </div>
+                <input type="hidden" name="typeForm" value="break">
+                <button class="btn waves-effect col s12 green" type="submit">Telecharger</button>
+            </form>
+        </div>
+        <div class="row">
+          <h5>Récup</h5>
+            <form action="/admin/export" method="POST" enctype="multipart/form-data">
+                <div class="input-field col s12">
+                    <label for="filterInputStart">Date de début</label>
+                    <input type="text" class="datepicker" name="filter_date_start" value="{{ "now"|date("d/m/Y") }}" id="filterInputStart">
+                </div>
+                <div class="input-field col s12">
+                    <label for="filterInputEnd">Date de fin</label>
+                    <input type="text" class="datepicker" name="filter_date_end" value="{{ "now"|date("d/m/Y") }}" id="filterInputEnd">
+                </div>
+                <input type="hidden" name="typeForm" value="recovery">
                 <button class="btn waves-effect col s12 green" type="submit">Telecharger</button>
             </form>
         </div>
