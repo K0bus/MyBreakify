@@ -11,8 +11,8 @@
           <h5>Pauses / Récup</h5>
             <form action="/admin/settings" method="POST" enctype="multipart/form-data">
                 <div class="file-field input-field">
-                    <input type="text" class="datepicker">
-                    <input type="text" class="datepicker">
+                    <input type="text" class="datepicker" name="filter_date_start" value="{{ "now"|date("d/m/Y") }}" id="filterInputStart">
+                    <input type="text" class="datepicker" name="filter_date_end" value="{{ "now"|date("d/m/Y") }}" id="filterInputEnd">
                 </div>
                 <button class="btn waves-effect col s12 green" type="submit">Telecharger</button>
             </form>
@@ -26,3 +26,38 @@
         </div>
         {% endif %}
 {% endblock %}
+
+  {% block js %}
+  <script>
+    $(document).ready(function(){
+        inter_fr = {
+          labelMonthNext: 'Mois suivant',
+          labelMonthPrev: 'Mois précédent',
+          labelMonthSelect: 'Selectionner le mois',
+          labelYearSelect: 'Selectionner une année',
+          months: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+          monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+          weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+          weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+          weekdaysLetter: [ 'D', 'L', 'Ma', 'Me', 'J', 'V', 'S' ],
+          today: 'Aujourd\'hui',
+          clear: 'Réinitialiser',
+          close: 'Fermer',
+          cancel: 'Annuler',
+          done: 'Valider',
+        }
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+        date = new Date();
+        $('.datepicker').datepicker({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 2, // Creates a dropdown of 15 years to control year
+            i18n: inter_fr,
+        	format: 'dd/mm/yyyy',
+        });
+      });
+  </script>
+  {% endblock %}
