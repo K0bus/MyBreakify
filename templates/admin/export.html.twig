@@ -11,30 +11,10 @@
           <h5>Pauses / Récup</h5>
             <form action="/admin/settings" method="POST" enctype="multipart/form-data">
                 <div class="file-field input-field">
-                <div class="btn blue col s3">
-                    <span>Importer</span>
-                    <input type="file" name="file_break">
+                    <input type="text" class="datepicker">
+                    <input type="text" class="datepicker">
                 </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                </div>
-                </div>
-                <button class="btn waves-effect col s12 green" type="submit">Envoyer</button>
-            </form>
-        </div>
-        <div class="row">
-          <h5>Staff</h5>
-            <form action="/admin/settings" method="POST" enctype="multipart/form-data">
-                <div class="file-field input-field">
-                <div class="btn blue col s3">
-                    <span>Importer</span>
-                    <input type="file" name="file_user">
-                </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                </div>
-                </div>
-                <button class="btn waves-effect col s12 green" type="submit">Envoyer</button>
+                <button class="btn waves-effect col s12 green" type="submit">Telecharger</button>
             </form>
         </div>
         {% if not errors is empty %}
