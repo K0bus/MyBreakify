@@ -10,8 +10,12 @@
         <div class="row">
           <h5>Pauses / Récup</h5>
             <form action="/admin/settings" method="POST" enctype="multipart/form-data">
-                <div class="file-field input-field">
+                <div class="input-field col s12">
+                    <label for="filterInputStart">Date de début</label>
                     <input type="text" class="datepicker" name="filter_date_start" value="{{ "now"|date("d/m/Y") }}" id="filterInputStart">
+                </div>
+                <div class="input-field col s12">
+                    <label for="filterInputEnd">Date de fin</label>
                     <input type="text" class="datepicker" name="filter_date_end" value="{{ "now"|date("d/m/Y") }}" id="filterInputEnd">
                 </div>
                 <button class="btn waves-effect col s12 green" type="submit">Telecharger</button>
