@@ -31,7 +31,7 @@ class AdminExportController extends AbstractController
         echo "TEST";
         if(isset($exportRequestType) && $exportRequestType != NULL)
         {
-            echo "TEST";
+            echo $exportRequestType;
             $start = DateTime::createFromFormat("d/m/Y",$request->query->get('filter_date_start'));
             $end = DateTime::createFromFormat("d/m/Y", $request->query->get('filter_date_end'));
             if($exportRequestType == "breaks")
