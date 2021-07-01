@@ -42,7 +42,7 @@ class AdminExportController extends AbstractController
                     ->getResult();
                     $rows = array();    
                     foreach ($breaks as $break) {
-                        $data = array($break->getId(), $break->getName(), $break->getDate()->format('d/m/Y'));
+                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'));
                         var_dump($data);
                         $rows[] = implode(';', $data);
                     }
