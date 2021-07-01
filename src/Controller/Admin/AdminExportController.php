@@ -53,7 +53,7 @@ class AdminExportController extends AbstractController
                             $recovery->getTimeTo()->format('H:i'),
                             $recovery->getStatus(),
                             $recovery->getComment(),
-                            $recovery->getRequestedAt()->format('d/m/Y H:i'));
+                            $recovery->getRequestAt()->format('d/m/Y H:i'));
                         $rows[] = implode(';', $data);
                     }
                     $content = implode("\n", $rows);
