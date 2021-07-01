@@ -27,7 +27,8 @@ class AdminExportController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $exportRequestType = $request->query->get('type');
+        $exportRequestType = $request->query->get('typeForm');
+        echo "TEST";
         if(isset($exportRequestType) && $exportRequestType != NULL)
         {
             echo "TEST";
