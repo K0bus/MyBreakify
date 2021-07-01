@@ -53,23 +53,32 @@ class AdminExportController extends AbstractController
                     $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
                     return $response;
             }
+            elseif($exportRequestType == "recovery")
+            {
+                $breaks = $this->getDoctrine()
+                    ->getManager()
+                    ->createQuery('SELECT b FROM App\Entity\UserRecovery b WHERE b.date >= :start AND b.date <= :end')
+                    ->setParameter('start', $start)
+                    ->setParameter('end', $end)
+                    ->getResult();
+                    $rows = array();
+                    $data = array("id", "date", "username", "time_from", "time_to", "status", "comment", "requested_at");
+                    $rows[] = implode(';', $data);
+                    foreach ($breaks as $break) {
+                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTimeFrom()->format('H:i'), $break->getTimeTo()->format('H:i'),$break->getStatus(), $break->getComment(), $break->getRequestedAt()->format('d/m/Y H:i'));
+                        $rows[] = implode(';', $data);
+                    }
+                    $content = implode("\n", $rows);
+                    $response = new Response($content);
+                    $response->headers->set('Content-Type', 'text/csv;');
+                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data.csv'));
+                    return $response;
+            }
         }
 
         $this->denyAccessUnlessGranted('ROLE_N1');
         return $this->render('admin/export.html.twig', [
             'errors' => $errors
         ]);
-    }
-
-    public function outputCSV($data, $useKeysForHeaderRow = true) {
-        if ($useKeysForHeaderRow) {
-            array_unshift($data, array_keys(reset($data)));
-        }
-    
-        $outputBuffer = fopen("php://output", 'w');
-        foreach($data as $v) {
-            fputcsv($outputBuffer, $v);
-        }
-        fclose($outputBuffer);
     }
 }
