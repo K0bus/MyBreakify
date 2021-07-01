@@ -54,7 +54,7 @@ class AdminExportController extends AbstractController
                     $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
                     return $response;
             }
-            elseif($exportRequestType == "recovery")
+            if($exportRequestType == "recovery")
             {
                 $recoveries = $this->getDoctrine()
                     ->getManager()
