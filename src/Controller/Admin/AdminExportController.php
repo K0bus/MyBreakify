@@ -38,7 +38,7 @@ class AdminExportController extends AbstractController
             {
                 $recoveries = $this->getDoctrine()
                     ->getManager()
-                    ->createQuery('SELECT b FROM App\Entity\UserReco0very b WHERE b.date >= :start AND b.date <= :end')
+                    ->createQuery('SELECT b FROM App\Entity\UserRecovery b WHERE b.date >= :start AND b.date <= :end')
                     ->setParameter('start', $start)
                     ->setParameter('end', $end)
                     ->getResult();
