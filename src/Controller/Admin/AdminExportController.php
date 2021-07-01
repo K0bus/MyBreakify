@@ -30,10 +30,12 @@ class AdminExportController extends AbstractController
         $exportRequestType = $request->query->get('type');
         if(isset($exportRequestType) && $exportRequestType != NULL)
         {
+            echo "TEST";
             $start = DateTime::createFromFormat("d/m/Y",$request->query->get('filter_date_start'));
             $end = DateTime::createFromFormat("d/m/Y", $request->query->get('filter_date_end'));
             if($exportRequestType == "breaks")
             {
+                echo "TEST2";
                 $breaks = $this->getDoctrine()
                     ->getManager()
                     ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
