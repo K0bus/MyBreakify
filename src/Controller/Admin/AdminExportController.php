@@ -29,6 +29,7 @@ class AdminExportController extends AbstractController
 
         $exportRequestType = $request->request->get('typeForm');
         echo $exportRequestType;
+        echo "TEST";
         if($exportRequestType != NULL)
         {
             $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'));
