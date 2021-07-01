@@ -32,6 +32,7 @@ class AdminExportController extends AbstractController
         {
             $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'));
             $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'));
+            echo $exportRequestType;
             if($exportRequestType == "breaks")
             {
                 $breaks = $this->getDoctrine()
@@ -55,7 +56,7 @@ class AdminExportController extends AbstractController
             }
             elseif($exportRequestType == "recovery")
             {
-                $breaks = $this->getDoctrine()
+                $recoveries = $this->getDoctrine()
                     ->getManager()
                     ->createQuery('SELECT b FROM App\Entity\UserRecovery b WHERE b.date >= :start AND b.date <= :end')
                     ->setParameter('start', $start)
@@ -64,8 +65,15 @@ class AdminExportController extends AbstractController
                     $rows = array();
                     $data = array("id", "date", "username", "time_from", "time_to", "status", "comment", "requested_at");
                     $rows[] = implode(';', $data);
-                    foreach ($breaks as $break) {
-                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTimeFrom()->format('H:i'), $break->getTimeTo()->format('H:i'),$break->getStatus(), $break->getComment(), $break->getRequestedAt()->format('d/m/Y H:i'));
+                    foreach ($recoveries as $recovery) {
+                        $data = array($recovery->getId(),
+                            $recovery->getDate()->format('d/m/Y'),
+                            $recovery->getUserId()->getUsername(),
+                            $recovery->getTimeFrom()->format('H:i'),
+                            $recovery->getTimeTo()->format('H:i'),
+                            $recovery->getStatus(),
+                            $recovery->getComment(),
+                            $recovery->getRequestedAt()->format('d/m/Y H:i'));
                         $rows[] = implode(';', $data);
                     }
                     $content = implode("\n", $rows);
