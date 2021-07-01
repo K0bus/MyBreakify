@@ -39,10 +39,10 @@ class AdminExportController extends AbstractController
                     ->createQuery('SELECT b FROM App\Entity\UserBreak b')
                     ->getResult();
                     $rows = array();
-                    $data = array("id", "date", "username", "time");
+                    $data = array("id", "date", "username", "time", "requested_at");
                     $rows[] = implode(';', $data);
                     foreach ($breaks as $break) {
-                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'));
+                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'), $break->getRequestedAt()->format('d/m/Y H:i'));
                         $rows[] = implode(';', $data);
                     }
                     $content = implode("\n", $rows);
