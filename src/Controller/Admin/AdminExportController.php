@@ -49,10 +49,7 @@ class AdminExportController extends AbstractController
                     $content = implode("\n", $rows);
                     $response = new Response($content);
                     $response->headers->set('Content-Type', 'text/csv;');
-                    $response->setContentDisposition(
-                        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                        'break_data.csv'
-                    );
+                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
                     return $response;
             }
         }
