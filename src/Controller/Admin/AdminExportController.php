@@ -23,7 +23,6 @@ class AdminExportController extends AbstractController
     public function export(Request $request): Response
     {
         $errors = array();
-        array_push($errors, "Export actuellement non disponible.");
 
         $entityManager = $this->getDoctrine()->getManager();
 
