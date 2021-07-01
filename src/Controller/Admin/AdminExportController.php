@@ -38,7 +38,7 @@ class AdminExportController extends AbstractController
                 echo "TEST2";
                 $breaks = $this->getDoctrine()
                     ->getManager()
-                    ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
+                    ->createQuery('SELECT b FROM UserBreak b WHERE b.date >= :start AND b.date <= :end')
                     ->setParameter('start', $start)
                     ->setParameter('end', $end)
                     ->getResult();
