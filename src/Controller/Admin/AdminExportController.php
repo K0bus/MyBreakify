@@ -38,15 +38,13 @@ class AdminExportController extends AbstractController
                 echo $start->format('d/m/Y')." - ".$end->format('d/m/Y');
                 $breaks = $this->getDoctrine()
                     ->getManager()
-                    ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
-                    ->setParameter('start', $start->format('d/m/Y'))
-                    ->setParameter('end', $end->format('d/m/Y'))
+                    ->createQuery('SELECT b FROM App\Entity\UserBreak b')
                     ->getResult();
                     $rows = array();    
                     foreach ($breaks as $break) {
                         $data = array($break->getId(), $break->getName(), $break->getDate()->format('d/m/Y'));
                         var_dump($data);
-                        $rows[] = implode(',', $data);
+                        $rows[] = implode(';', $data);
                     }
                     $content = implode("\n", $rows);
                     $response = new Response($content);
