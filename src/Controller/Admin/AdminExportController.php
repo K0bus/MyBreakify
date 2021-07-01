@@ -42,7 +42,7 @@ class AdminExportController extends AbstractController
                     ->setParameter('start', $start->format('d/m/Y'))
                     ->setParameter('end', $end->format('d/m/Y'))
                     ->getResult();
-                    $rows = array();
+                    $rows = array();    
                     foreach ($breaks as $break) {
                         $data = array($break->getId(), $break->getName(), $break->getDate()->format('d/m/Y'));
                         var_dump($data);
@@ -50,7 +50,7 @@ class AdminExportController extends AbstractController
                     }
                     $content = implode("\n", $rows);
                     $response = new Response($content);
-                    $response->headers->set('Content-Type', 'text/csv');
+                    $response->headers->set('Content-Type', 'text/csv; name="break_data.csv"');
                     return $response;
             }
         }
