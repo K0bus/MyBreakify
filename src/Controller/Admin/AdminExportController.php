@@ -30,20 +30,19 @@ class AdminExportController extends AbstractController
         $exportRequestType = $request->request->get('typeForm');
         if($exportRequestType != NULL)
         {
-            echo $exportRequestType;
             $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'));
             $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'));
             if($exportRequestType == "breaks")
             {
-                echo $start->format('d/m/Y')." - ".$end->format('d/m/Y');
                 $breaks = $this->getDoctrine()
                     ->getManager()
                     ->createQuery('SELECT b FROM App\Entity\UserBreak b')
                     ->getResult();
-                    $rows = array();    
+                    $rows = array();
+                    $data = array("id", "date", "username", "time");
+                    $rows[] = implode(';', $data);
                     foreach ($breaks as $break) {
                         $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'));
-                        var_dump($data);
                         $rows[] = implode(';', $data);
                     }
                     $content = implode("\n", $rows);
