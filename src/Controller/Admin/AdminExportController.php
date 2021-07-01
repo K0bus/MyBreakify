@@ -39,12 +39,12 @@ class AdminExportController extends AbstractController
                 $breaks = $this->getDoctrine()
                     ->getManager()
                     ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
-                    ->setParameter('start', $start)
-                    ->setParameter('end', $end)
+                    ->setParameter('start', $start->format('d/m/Y'))
+                    ->setParameter('end', $end->format('d/m/Y'))
                     ->getResult();
                     $rows = array();
                     foreach ($breaks as $break) {
-                        $data = array($break->getId(), $break->getName(), $break->getTime()->format('Y-m-d H:i:s'));
+                        $data = array($break->getId(), $break->getName(), $break->getDate()->format('d/m/Y'));
                         var_dump($data);
                         $rows[] = implode(',', $data);
                     }
