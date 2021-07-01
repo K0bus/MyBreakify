@@ -54,11 +54,17 @@ class AdminExportController extends AbstractController
                             $recovery->getRequestAt()->format('d/m/Y H:i'));
                         $rows[] = implode(';', $data);
                     }
-                    $content = implode("\n", $rows);
-                    $response = new Response($content);
-                    $response->headers->set('Content-Type', 'text/csv;');
-                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data.csv'));
-                    return $response;
+                    if(count($rows) > 1)
+                    {
+                        $content = implode("\n", $rows);
+                        $response = new Response($content);
+                        $response->headers->set('Content-Type', 'text/csv;');
+                        $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data.csv'));
+                        return $response;
+                    }
+                    else {
+                        array_push($errors, "Aucune données à extraire pour la période du ".$start->format('d/m/Y')." au ".$end->format('d/m/Y'));
+                    }
             }
             if($exportRequestType == "breaks")
             {
@@ -75,11 +81,17 @@ class AdminExportController extends AbstractController
                         $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'), $break->getRequestedAt()->format('d/m/Y H:i'));
                         $rows[] = implode(';', $data);
                     }
-                    $content = implode("\n", $rows);
-                    $response = new Response($content);
-                    $response->headers->set('Content-Type', 'text/csv;');
-                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
-                    return $response;
+                    if(count($rows) > 1)
+                    {
+                        $content = implode("\n", $rows);
+                        $response = new Response($content);
+                        $response->headers->set('Content-Type', 'text/csv;');
+                        $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
+                        return $response;
+                    }
+                    else {
+                        array_push($errors, "Aucune données à extraire pour la période du ".$start->format('d/m/Y')." au ".$end->format('d/m/Y'));
+                    }
             }
 
         }
