@@ -27,8 +27,8 @@ class AdminExportController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $exportRequestType = $request->query->get('typeForm');
-        if(isset($exportRequestType) && $exportRequestType != NULL)
+        $exportRequestType = $request->request->get('typeForm');
+        if($exportRequestType != NULL)
         {
             echo $exportRequestType;
             $start = DateTime::createFromFormat("d/m/Y",$request->query->get('filter_date_start'));
