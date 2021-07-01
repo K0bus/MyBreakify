@@ -45,7 +45,7 @@ class AdminExportController extends AbstractController
                     $rows = array();
                     foreach ($breaks as $break) {
                         $data = array($break->getId(), $break->getName(), $break->getTime()->format('Y-m-d H:i:s'));
-                
+                        var_dump($data);
                         $rows[] = implode(',', $data);
                     }
                     $content = implode("\n", $rows);
