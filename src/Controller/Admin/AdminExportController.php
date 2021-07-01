@@ -20,7 +20,7 @@ class AdminExportController extends AbstractController
     /**
      * @Route("/admin/export", name="app_admin_export")
      */
-    public function break(Request $request): Response
+    public function export(Request $request): Response
     {
         $errors = array();
         array_push($errors, "Export actuellement non disponible.");
@@ -34,27 +34,6 @@ class AdminExportController extends AbstractController
         {
             $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'));
             $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'));
-            if($exportRequestType == "breaks")
-            {
-                $breaks = $this->getDoctrine()
-                    ->getManager()
-                    ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
-                    ->setParameter('start', $start)
-                    ->setParameter('end', $end)
-                    ->getResult();
-                    $rows = array();
-                    $data = array("id", "date", "username", "time", "requested_at");
-                    $rows[] = implode(';', $data);
-                    foreach ($breaks as $break) {
-                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'), $break->getRequestedAt()->format('d/m/Y H:i'));
-                        $rows[] = implode(';', $data);
-                    }
-                    $content = implode("\n", $rows);
-                    $response = new Response($content);
-                    $response->headers->set('Content-Type', 'text/csv;');
-                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
-                    return $response;
-            }
             if($exportRequestType == "recovery")
             {
                 $recoveries = $this->getDoctrine()
@@ -83,6 +62,28 @@ class AdminExportController extends AbstractController
                     $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data.csv'));
                     return $response;
             }
+            if($exportRequestType == "breaks")
+            {
+                $breaks = $this->getDoctrine()
+                    ->getManager()
+                    ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
+                    ->setParameter('start', $start)
+                    ->setParameter('end', $end)
+                    ->getResult();
+                    $rows = array();
+                    $data = array("id", "date", "username", "time", "requested_at");
+                    $rows[] = implode(';', $data);
+                    foreach ($breaks as $break) {
+                        $data = array($break->getId(), $break->getDate()->format('d/m/Y'), $break->getUserId()->getUsername(), $break->getTime()->format('H:i'), $break->getRequestedAt()->format('d/m/Y H:i'));
+                        $rows[] = implode(';', $data);
+                    }
+                    $content = implode("\n", $rows);
+                    $response = new Response($content);
+                    $response->headers->set('Content-Type', 'text/csv;');
+                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data.csv'));
+                    return $response;
+            }
+
         }
 
         $this->denyAccessUnlessGranted('ROLE_N1');
