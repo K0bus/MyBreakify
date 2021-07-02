@@ -117,7 +117,7 @@ class AdminConfigController extends AbstractController
                     }
                     else ($v["role"] == "USER")
                     {
-                        $t->setRoles(array());
+                        $t->setRoles(array("ROLE_USER"));
                     }
                     //TODO : Add role
                     $entityManager->persist($t);
