@@ -112,7 +112,7 @@ class AdminConfigController extends AbstractController
                         case 'ADMIN':
                             $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
                             break;
-                        case: 'N1':
+                        case 'N1':
                             $t->setRoles(array("ROLE_N1"));
                             break;
                         
