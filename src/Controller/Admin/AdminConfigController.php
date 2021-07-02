@@ -108,15 +108,17 @@ class AdminConfigController extends AbstractController
                         $t->setCreatedAt($now);
                         $t->setLoggedAt($now);
                     }
-                    if($v["role"] == "ADMIN")
-                    {
-                        $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
-                    }
-                    elseif ($v["role"] == "N1") {
-                        $t->setRoles(array("ROLE_N1"));
-                    }
-                    else ($v["role"] == "USER") {
-                        $t->setRoles(array("ROLE_USER"));
+                    switch ($v["roles"]) {
+                        case 'ADMIN':
+                            $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
+                            break;
+                        case: 'N1':
+                            $t->setRoles(array("ROLE_N1"));
+                            break;
+                        
+                        default:
+                            $t->setRoles(array("ROLE_USER"));
+                            break;
                     }
                     //TODO : Add role
                     $entityManager->persist($t);
