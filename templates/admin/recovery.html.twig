@@ -24,7 +24,7 @@
 
         <tbody>
             {% for recovery in recoveries %}
-                {% set difference = date(recovery.timeto).diff(date(recovery.timefrom)) %}
+                {% set difference = recovery.timeto.diff(recovery.timefrom) %}
                 {% set minutes = difference.i %}
                 <tr>
                     <td>{{recovery.userid.firstname}}, {{recovery.userid.lastname}} <a href="#modal-info-{{ recovery.userid.id }}" class="modal-trigger">?</a></td>
