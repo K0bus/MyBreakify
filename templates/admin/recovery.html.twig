@@ -24,7 +24,7 @@
 
         <tbody>
             {% for recovery in recoveries %}
-                {% set difference = date(recovery.timeto).diff(date(recovery.timetotimefrom)) %}
+                {% set difference = date(recovery.timeto).diff(date(recovery.timefrom)) %}
                 {% set minutes = difference.i %}
                 {% set hour = difference.h %}
                 <tr>
