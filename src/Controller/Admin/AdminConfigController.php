@@ -80,7 +80,7 @@ class AdminConfigController extends AbstractController
                 else
                 {
                     foreach ($data as $key => $v) {
-                        $this->updateUser($v, $this);
+                        $this->updateUser($v);
                     }
                 }
             }
@@ -111,9 +111,9 @@ class AdminConfigController extends AbstractController
         return $this->redirectToRoute("app_admin_recovery");
     }
 
-    public function updateUser($v, $req)
+    public function updateUser($v)
     {
-        $t = $req->getDoctrine()
+        $t = $this->getDoctrine()
         ->getRepository(User::class)
         ->findOneBy([
             "username" => $v["username"]
