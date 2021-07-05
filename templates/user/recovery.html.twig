@@ -44,7 +44,16 @@
     <ul class="collection with-header">
         {% for recovery in recoveries %}
             {% set difference = (date(recovery.timeto).timestamp - date(recovery.timefrom).timestamp) / 60 %}
-            <li class="collection-item"><div>Le {{ recovery.date|date('d/m/y') }} de {{ recovery.timefrom|date('H:i') }} à {{ recovery.timeto|date('H:i') }} ({{difference}} minutes) - <i class="orange-text">En attente</i>
+            <li class="collection-item"><div>Le {{ recovery.date|date('d/m/y') }} de {{ recovery.timefrom|date('H:i') }} à {{ recovery.timeto|date('H:i') }} ({{difference}} minutes) - 
+                    {% if recovery.status == 0 %}
+                        <i class="orange-text">En attente</i>
+                    {% elseif recovery.status == 1 %}
+                        <i class="green-text">Validée</i>
+                    {% elseif recovery.status == 2 %}
+                        <i class="red-text">Refusée</i>
+                    {% elseif recovery.status == 3 %}
+                        <i class="gray-text">Annulée</i>
+                    {% endif %}
                 {% if recovery.status == 0 %}
                     <a href="/recovery/remove/{{ recovery.id }}" class="secondary-content"><i class="material-icons left">delete</i> Annuler</a></div></li>      
                 {% endif %}
