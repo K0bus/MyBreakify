@@ -49,8 +49,10 @@
 
 {% block js %}
     <script>
+    {% if not success is empty %}
         {% for v in success %}
             M.toast({html: {{ v }}, classes: 'rounded lime accent-3'});
         {% endfor %}
+    {% endif %}
     </script>
 {% endblock %}
