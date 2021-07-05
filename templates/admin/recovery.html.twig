@@ -18,7 +18,7 @@
               <th>Commentaire</th>
               <th>Etat</th>
               <th>Edition</th>
-              <th>Docs</th>
+              <!--<th>Docs</th>-->
           </tr>
         </thead>
 
@@ -42,7 +42,7 @@
                         <td><i class="material-icons gray-text">close</i></td>
                     {% endif %}
                     <td> <button data-target="modal-edit-{{ recovery.id }}" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-                    <td>{% if recovery.status == 1 %}<a target="_blank" href="/admin/recovery/pdf/{{ recovery.id }}"><i class="material-icons">picture_as_pdf</i></a>{% endif %}</td>
+                    <!--<td>{% if recovery.status == 1 %}<a target="_blank" href="/admin/recovery/pdf/{{ recovery.id }}"><i class="material-icons">picture_as_pdf</i></a>{% endif %}</td>-->
                 </tr>
             {% endfor %}
         </tbody>
