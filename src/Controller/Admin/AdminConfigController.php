@@ -97,11 +97,11 @@ class AdminConfigController extends AbstractController
                     }
                     if($i_new>0)
                     {
-                        array_push($success, $i_new." nouveau comptes créé(s) !")
+                        array_push($success, $i_new." nouveau comptes créé(s) !");
                     }
                     if($i_edit>0)
                     {
-                        array_push($success, $i_edit." comptes édité(s) !")
+                        array_push($success, $i_edit." comptes édité(s) !");
                     }
                 }
             }
