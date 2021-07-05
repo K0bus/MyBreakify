@@ -72,12 +72,12 @@ class AdminConfigController extends AbstractController
             $now = new DateTime();
             if(isset($data[0]))
             {
-                if(!array_key_exists("username", $data[0]) || !array_key_exists("email", $data[0]) || !array_key_exists("firstname", $data[0]) || 
-                !array_key_exists("lastname", $data[0]) || !array_key_exists("password", $data[0]) || !array_key_exists("role", $data[0]))
-                {
-                    array_push($errors, "Le fichier CSV " . $file_user->getClientOriginalName() . " n'est pas correcte !" );
+                $needed = array("username", "email", "firstname", "lastname", "password", "role");
+                foreach ($needed as $key => $value) {
+                    if(!array_key_exists($value, $data[0]))
+                        array_push($errors, "Le fichier CSV " . $file_user->getClientOriginalName() . " ne contient pas la colonne " . $value );
                 }
-                else
+                if(count($errors) == 0)
                 {
                     foreach ($data as $key => $v) {
                         $this->updateUser($v, $encoder);
