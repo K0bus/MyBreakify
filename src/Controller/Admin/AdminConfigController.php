@@ -114,6 +114,7 @@ class AdminConfigController extends AbstractController
 
         return $this->render('admin/config.html.twig', [
             "errors" => $errors,
+            "success" => $success
         ]);
     }
     /**
