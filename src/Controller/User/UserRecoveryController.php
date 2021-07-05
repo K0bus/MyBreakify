@@ -54,7 +54,7 @@ class UserRecoveryController extends AbstractController
             ->getRepository(UserRecovery::class)
             ->findBy([
                 'user_id' => $user
-            ]);
+            ], array('date' => 'ASC'));
 
         return $this->render('user/recovery.html.twig', [
             "form" => $form->createView(),
