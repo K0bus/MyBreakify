@@ -29,6 +29,7 @@ class AdminConfigController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $errors = array();
+        $success = array();
 
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -38,13 +39,14 @@ class AdminConfigController extends AbstractController
         {
                 $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
                 $data = $serializer->decode(str_replace(";",",",file_get_contents($file_break->getPathname())), 'csv');
-                if(!array_key_exists("hour", $data[1]) || !array_key_exists("date", $data[1]) || !array_key_exists("break", $data[1]) || 
-                    !array_key_exists("recovery", $data[1]) || !array_key_exists("adm_break", $data[1]))
-                {
-                    array_push($errors, "Le fichier CSV " . $file_break->getClientOriginalName() . " n'est pas correcte !" );
+                $needed = array("hour", "date", "break", "recovery", "adm_break");
+                foreach ($needed as $key => $value) {
+                    if(!array_key_exists($value, $data[0]))
+                        array_push($errors, "Le fichier CSV " . $file_user->getClientOriginalName() . " ne contient pas la colonne " . $value );
                 }
-                else
+                if(count($errors) == 0)
                 {
+                    $i = 0;
                     foreach ($data as $key => $v) {
                         $t = $this->getDoctrine()
                         ->getRepository(TimeParam::class)
@@ -62,7 +64,9 @@ class AdminConfigController extends AbstractController
 
                         $entityManager->persist($t);
                         $entityManager->flush();
+                        $i++;
                     }
+                    array_push($success, $i . " données injectées avec succès !")
                 }
         }
         if($file_user != NULL)
@@ -79,8 +83,25 @@ class AdminConfigController extends AbstractController
                 }
                 if(count($errors) == 0)
                 {
+                    $i_edit = 0;
+                    $i_new = 0;
                     foreach ($data as $key => $v) {
-                        $this->updateUser($v, $encoder);
+                        if($this->updateUser($v, $encoder))
+                        {
+                            $i_new++;
+                        }
+                        else
+                        {
+                            $i_edit++;
+                        }
+                    }
+                    if($i_new>0)
+                    {
+                        array_push($success, $i_new." nouveau comptes créé(s) !")
+                    }
+                    if($i_edit>0)
+                    {
+                        array_push($success, $i_edit." comptes édité(s) !")
                     }
                 }
             }
@@ -158,5 +179,6 @@ class AdminConfigController extends AbstractController
         }
         $entityManager->persist($t);
         $entityManager->flush();
+        return $new;
     }
 }
