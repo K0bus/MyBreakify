@@ -108,7 +108,7 @@ class AdminConfigController extends AbstractController
                         $t->setCreatedAt($now);
                         $t->setLoggedAt($now);
                     }
-                    switch ($v["roles"]) {
+                    switch ($v["role"]) {
                         case 'ADMIN':
                             $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
                             break;
