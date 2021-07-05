@@ -80,7 +80,7 @@ class AdminConfigController extends AbstractController
                 else
                 {
                     foreach ($data as $key => $v) {
-                        updateUser($v, $this);
+                        $this->updateUser($v, $this);
                     }
                 }
             }
