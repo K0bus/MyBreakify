@@ -77,52 +77,15 @@ class AdminConfigController extends AbstractController
             }
             else
             {
-                foreach ($data as $key => $v) {
-                    $t = $this->getDoctrine()
-                    ->getRepository(User::class)
-                    ->findOneBy([
-                        "username" => $v["username"]
-                    ]);
-                    $new = false;
-                    if($t == null)
-                    {
-                        $t = new User();
-                        $new = true;
+                if(is_array($data))
+                {
+                    foreach ($data as $key => $v) {
+                        updateUser($v, $this);
                     }
-                    $t->setUsername($v["username"]);
-                    $t->setEmail($v["email"]);
-                    $t->setFirstname($v["firstname"]);
-                    $t->setLastname($v["lastname"]);
-                    if($new && $v["password"] != "")
-                    {
-                        $t->setPassword($encoder->encodePassword($t, $v["password"]));
-                    }
-                    elseif($new)
-                    {
-                        $t->setPassword($encoder->encodePassword($t, md5(microtime())));
-                    }
-                    if(!$new && $v["password"] != "")
-                        $t->setPassword($encoder->encodePassword($t, $v["password"]));
-                    if($new)
-                    {
-                        $t->setCreatedAt($now);
-                        $t->setLoggedAt($now);
-                    }
-                    switch ($v["role"]) {
-                        case 'ADMIN':
-                            $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
-                            break;
-                        case 'N1':
-                            $t->setRoles(array("ROLE_N1"));
-                            break;
-                        
-                        default:
-                            $t->setRoles(array("ROLE_USER"));
-                            break;
-                    }
-                    //TODO : Add role
-                    $entityManager->persist($t);
-                    $entityManager->flush();
+                }
+                else
+                {
+                    updateUser($data, $this);
                 }
             }
         }
@@ -145,5 +108,53 @@ class AdminConfigController extends AbstractController
         $entityManager->remove($userBreak);
         $entityManager->flush();
         return $this->redirectToRoute("app_admin_recovery");
+    }
+
+    public function updateUser($v, $req)
+    {
+        $t = $req->getDoctrine()
+        ->getRepository(User::class)
+        ->findOneBy([
+            "username" => $v["username"]
+        ]);
+        $new = false;
+        if($t == null)
+        {
+            $t = new User();
+            $new = true;
+        }
+        $t->setUsername($v["username"]);
+        $t->setEmail($v["email"]);
+        $t->setFirstname($v["firstname"]);
+        $t->setLastname($v["lastname"]);
+        if($new && $v["password"] != "")
+        {
+            $t->setPassword($encoder->encodePassword($t, $v["password"]));
+        }
+        elseif($new)
+        {
+            $t->setPassword($encoder->encodePassword($t, md5(microtime())));
+        }
+        if(!$new && $v["password"] != "")
+            $t->setPassword($encoder->encodePassword($t, $v["password"]));
+        if($new)
+        {
+            $t->setCreatedAt($now);
+            $t->setLoggedAt($now);
+        }
+        switch ($v["role"]) {
+            case 'ADMIN':
+                $t->setRoles(array("ROLE_ADMIN", "ROLE_N1"));
+                break;
+            case 'N1':
+                $t->setRoles(array("ROLE_N1"));
+                break;
+            
+            default:
+                $t->setRoles(array("ROLE_USER"));
+                break;
+        }
+        $entityManager->persist($t);
+        $entityManager->flush();
     }
 }
