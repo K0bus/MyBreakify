@@ -66,7 +66,7 @@ class AdminConfigController extends AbstractController
                         $entityManager->flush();
                         $i++;
                     }
-                    array_push($success, $i . " données injectées avec succès !")
+                    array_push($success, $i . " données injectées avec succès !");
                 }
         }
         if($file_user != NULL)
