@@ -135,6 +135,7 @@ class AdminConfigController extends AbstractController
 
     public function updateUser($v, $encoder)
     {
+        $now = new DateTime();
         $entityManager = $this->getDoctrine()->getManager();
         $t = $this->getDoctrine()
         ->getRepository(User::class)
