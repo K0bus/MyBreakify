@@ -88,7 +88,7 @@ class AdminBreakController extends AbstractController
             ->getRepository(TimeParam::class)
             ->findOneBy([
                 "time" => $temp,
-                "date" => new DateTime(),
+                "date" => $date,
             ]);
 
             $data = array();
