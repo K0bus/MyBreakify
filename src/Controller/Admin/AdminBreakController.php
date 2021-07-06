@@ -41,7 +41,7 @@ class AdminBreakController extends AbstractController
         }
 
         $users = $this->getDoctrine()->getRepository(User::class)
-            ->findAll();
+            ->findAll(array("firstname", "ASC"));
         $user_list = array();
         foreach ($users as $key => $user) {
             $user_list[$user->getFirstname() . ", " . $user->getLastname()] = $user;
