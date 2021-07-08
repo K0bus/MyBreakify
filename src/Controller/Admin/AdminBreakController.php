@@ -103,7 +103,7 @@ class AdminBreakController extends AbstractController
                 $data["adm_max"] = $time_param->getBreakAdm();
             }
                 
-            if($data["max"])
+            if($data["max"] > 0)
             {
                 $v = $data["count"] / $data["max"] * 100;
             }
