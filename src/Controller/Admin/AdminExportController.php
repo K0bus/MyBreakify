@@ -35,8 +35,9 @@ class AdminExportController extends AbstractController
             {
                 if($start == $end)
                 {
-                    $recoveries = $this->getDoctrine()
-                    ->getAllBy([
+                    $breaks = $this->getDoctrine()
+                    ->getRepository(UserRecovery::class)
+                    ->findAllBy([
                         "date" => $start
                     ]);
                 }
@@ -77,6 +78,23 @@ class AdminExportController extends AbstractController
             }
             if($exportRequestType == "breaks")
             {
+                if($start == $end)
+                {
+                    $breaks = $this->getDoctrine()
+                    ->getRepository(UserBreak::class)
+                    ->findAllBy([
+                        "date" => $start
+                    ]);
+                }
+                else
+                {
+                    $breaks = $this->getDoctrine()
+                        ->getManager()
+                        ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
+                        ->setParameter('start', $start)
+                        ->setParameter('end', $end)
+                        ->getResult();
+                }
                 $breaks = $this->getDoctrine()
                     ->getManager()
                     ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
