@@ -40,7 +40,7 @@ class AdminRecoveryController extends AbstractController
         ->findBy([
             "date" => $date,
         ], [
-            "time_to" => "DESC",
+            "time_to" => "ASC",
         ]);
         $users = array();
         foreach ($recoveries as $key => $value) {
