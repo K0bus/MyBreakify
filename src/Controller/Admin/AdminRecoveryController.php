@@ -39,6 +39,8 @@ class AdminRecoveryController extends AbstractController
         ->getRepository(UserRecovery::class)
         ->findBy([
             "date" => $date,
+        ], [
+            "time_to" => "DESC",
         ]);
         $users = array();
         foreach ($recoveries as $key => $value) {
