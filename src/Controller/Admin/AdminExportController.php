@@ -29,8 +29,8 @@ class AdminExportController extends AbstractController
         $exportRequestType = $request->request->get('typeForm');
         if($exportRequestType != NULL)
         {
-            $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'));
-            $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'));
+            $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'))->setTime(00, 00, 00);
+            $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'))->setTime(23, 59, 59);
             if($exportRequestType == "recovery")
             {
                 if($start == $end)
@@ -95,12 +95,6 @@ class AdminExportController extends AbstractController
                         ->setParameter('end', $end)
                         ->getResult();
                 }
-                $breaks = $this->getDoctrine()
-                    ->getManager()
-                    ->createQuery('SELECT b FROM App\Entity\UserBreak b WHERE b.date >= :start AND b.date <= :end')
-                    ->setParameter('start', $start)
-                    ->setParameter('end', $end)
-                    ->getResult();
                     $rows = array();
                     $data = array("id", "date", "username", "time", "requested_at");
                     $rows[] = implode(';', $data);
