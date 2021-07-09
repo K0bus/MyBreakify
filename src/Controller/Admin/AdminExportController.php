@@ -58,7 +58,14 @@ class AdminExportController extends AbstractController
                     $content = implode("\n", $rows);
                     $response = new Response($content);
                     $response->headers->set('Content-Type', 'text/csv;');
-                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data_'.$start->format('dmY').'_'.$end->format('dmY').'.csv'));
+                    if($start->format("d/m/y") == $end->format("d/m/y"))
+                    {
+                        $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data_'.$start->format('dmY').'_'.$end->format('dmY').'.csv'));
+                    }
+                    else
+                    {
+                        $response->headers->set('Content-Disposition', 'attachment; filename='.basename('recovery_data_'.$start->format('dmY').'.csv'));
+                    }
                     return $response;
                 }
                 else {
@@ -85,7 +92,14 @@ class AdminExportController extends AbstractController
                     $content = implode("\n", $rows);
                     $response = new Response($content);
                     $response->headers->set('Content-Type', 'text/csv;');
-                    $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data_'.$start->format('dmY').'_'.$end->format('dmY').'.csv'));
+                    if($start->format("d/m/y") == $end->format("d/m/y"))
+                    {
+                        $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data_'.$start->format('dmY').'.csv'));
+                    }
+                    else
+                    {
+                        $response->headers->set('Content-Disposition', 'attachment; filename='.basename('break_data_'.$start->format('dmY').'_'.$end->format('dmY').'.csv'));
+                    }
                     return $response;
                 }
                 else {
