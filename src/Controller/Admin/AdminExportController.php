@@ -37,7 +37,7 @@ class AdminExportController extends AbstractController
                 {
                     $breaks = $this->getDoctrine()
                     ->getRepository(UserRecovery::class)
-                    ->findAllBy([
+                    ->findBy([
                         "date" => $start
                     ]);
                 }
@@ -82,7 +82,7 @@ class AdminExportController extends AbstractController
                 {
                     $breaks = $this->getDoctrine()
                     ->getRepository(UserBreak::class)
-                    ->findAllBy([
+                    ->findBy([
                         "date" => $start
                     ]);
                 }
