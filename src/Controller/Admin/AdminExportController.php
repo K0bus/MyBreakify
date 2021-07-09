@@ -29,8 +29,8 @@ class AdminExportController extends AbstractController
         $exportRequestType = $request->request->get('typeForm');
         if($exportRequestType != NULL)
         {
-            $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'))->format('d/m/y');
-            $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'))->format('d/m/y');
+            $start = DateTime::createFromFormat("d/m/Y",$request->request->get('filter_date_start'));
+            $end = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date_end'));
             if($exportRequestType == "recovery")
             {
                 if($start == $end)
