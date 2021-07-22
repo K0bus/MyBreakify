@@ -47,6 +47,12 @@ class UserBreakController extends AbstractController
             //TODO : Get hour
             $now = new DateTime("now");
             $now->sub(new DateInterval('PT5M'));
+            
+            if($now > $temp || in_array($temp->format("H:i"), $time_blacklist))
+            {
+                $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+                continue;
+            }
 
             $breaks = $this->getDoctrine()
             ->getRepository(UserBreak::class)
@@ -63,7 +69,7 @@ class UserBreakController extends AbstractController
             ]);
 
             if($time_param != null)
-                if($now < $temp && !in_array($temp->format("H:i"), $time_blacklist) && count($breaks) < $time_param->getBreak())
+                if(count($breaks) < $time_param->getBreak())
                     $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
             $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
         }
