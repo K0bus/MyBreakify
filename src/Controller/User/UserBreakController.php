@@ -37,6 +37,7 @@ class UserBreakController extends AbstractController
             ->getRepository(UserBreak::class)
             ->findBy([
                 "user_id" => $user,
+                "date" => new DateTime(),
             ]);
         foreach ($breaks as $key => $break) {
             array_push($time_blacklist, $break->getTime()->format("H:i"));
