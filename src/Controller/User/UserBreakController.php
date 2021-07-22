@@ -42,37 +42,48 @@ class UserBreakController extends AbstractController
         foreach ($breaks as $key => $break) {
             array_push($time_blacklist, $break->getTime()->format("H:i"));
         }
-        while ($temp <= $endDate)
-        {
-            //TODO : Get hour
+
+        // Fetch time param / break taken by all users
+
+        $breaks_glob = $this->getDoctrine()
+        ->getRepository(UserBreak::class)
+        ->findBy([
+            "date" => new DateTime(),
+        ]);
+
+        $time_param = $this->getDoctrine()
+        ->getRepository(TimeParam::class)
+        ->findOneBy([
+            "date" => new DateTime(),
+        ]);
+
+        $time_arr = array();
+
+        foreach ($time_param as $key => $param) {
+            $t = $param->getTime()->format("H:i")
+            $time_arr[$t]["allowed"] = $param->getBreak();
+        }
+        foreach ($breaks_glob as $key => $break) {
+            $t = $break->getTime()->format("H:i");
+            if(isset($time_arr[$t]["taken"]))
+                $time_arr[$t]["taken"]++;
+            else
+                $time_arr[$t]["taken"] = 1;
+        }
+        foreach ($time_arr as $key => $v) {
             $now = new DateTime("now");
             $now->sub(new DateInterval('PT5M'));
-            
-            if($now > $temp || in_array($temp->format("H:i"), $time_blacklist))
+            $time = new DateTime($key);
+
+            if($now > $time || in_array($time->format("H:i"), $time_blacklist))
             {
                 $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
                 continue;
             }
-
-            $breaks = $this->getDoctrine()
-            ->getRepository(UserBreak::class)
-            ->findBy([
-                "time" => $temp,
-                "date" => new DateTime(),
-            ]);
-
-            $time_param = $this->getDoctrine()
-            ->getRepository(TimeParam::class)
-            ->findOneBy([
-                "time" => $temp,
-                "date" => new DateTime(),
-            ]);
-
-            if($time_param != null)
-                if(count($breaks) < $time_param->getBreak())
-                    $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
-            $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+            if($v["taken"] < $v["allowed"])
+                $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
         }
+
         $form = $this->createForm(UserBreakType::class, $userBreak, [
             'time_list' => $time
         ]);
@@ -87,16 +98,11 @@ class UserBreakController extends AbstractController
             $entityManager->persist($userBreak);
             $entityManager->flush();
             unset($time[$userBreak->getTime()->format("H:i")]);
+            array_push($breaks, $userBreak)
             $form = $this->createForm(UserBreakType::class, $userBreak, [
                 'time_list' => $time
             ]);
         }
-        $breaks = $this->getDoctrine()
-            ->getRepository(UserBreak::class)
-            ->findBy([
-                "user_id" => $user,
-                "date" => new DateTime()
-            ]);
         return $this->render('user/break.html.twig', [
             "form" => $form->createView(),
             "breaks" => $breaks,
