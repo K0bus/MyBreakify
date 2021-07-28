@@ -43,12 +43,30 @@ class UserAccountController extends AbstractController
             array_push($success, "Votre mot de passe a été modifié avec succès !");
         }
         elseif ($passForm->isSubmitted()) {
-            $errors = $passForm->getErrors(true, false);
+            $errors = getErrorMessage($passForm);
         }
         return $this->render('user/account.html.twig', [
             "passForm" => $passForm->createView(),
             "success" => $success,
             "errors" => $errors
         ]);
+    }
+
+    private function getErrorMessage(\Symfony\Component\Form\Form $form) {
+        $errors = array();
+
+        foreach ($form-getErrors() as $key => $error) {
+            if($form->isRoot())
+                $errors["#"][] = $error->getMessage();
+            else
+                $errors[] = $error->getMessage();
+        }
+
+        foreach ($form->all() as $child) {
+            if(!$child->isValid())
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+        }
+        
+        return $errors;
     }
 }
