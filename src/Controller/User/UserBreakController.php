@@ -79,6 +79,7 @@ class UserBreakController extends AbstractController
             var_dump($time);
             if($time < $now || in_array($time->format("H:i"), $time_blacklist))
             {
+                echo $time."<br>";
                 $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
                 continue;
             }
