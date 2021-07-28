@@ -121,8 +121,6 @@
           weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
           weekdaysLetter: [ 'D', 'L', 'Ma', 'Me', 'J', 'V', 'S' ],
           today: 'Aujourd\'hui',
-          defaultDate: $(".datepicker").value,
-          setDefaultDate: true,
           clear: 'Réinitialiser',
           close: 'Fermer',
           cancel: 'Annuler',
@@ -139,6 +137,8 @@
             selectYears: 2, // Creates a dropdown of 15 years to control year
             i18n: inter_fr,
         	format: 'dd/mm/yyyy',
+            defaultDate: $(".datepicker").value,
+            setDefaultDate: true,
         });
       });
       $( "#filterInput" ).change(function() {
