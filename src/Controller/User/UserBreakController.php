@@ -114,7 +114,7 @@ class UserBreakController extends AbstractController
             "form" => $form->createView(),
             "breaks" => $breaks,
             "errors" => $errors,
-            "test_data" => $time_param
+            "test_data" => $time_blacklist
         ]);
     }
     /**
