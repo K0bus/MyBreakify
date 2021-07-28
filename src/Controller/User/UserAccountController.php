@@ -44,6 +44,7 @@ class UserAccountController extends AbstractController
         }
         elseif ($passForm->isSubmitted()) {
             foreach ($passForm->getErrors() as $key => $error) {
+                echo $error->getMessage();
                 array_push($errors, $error->getMessage());
             }
         }
