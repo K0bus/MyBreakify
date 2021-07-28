@@ -25,6 +25,7 @@ class UserAccountController extends AbstractController
         $passForm = $this->createForm(UserPasswordType::class, $user);
         $passForm->handleRequest($request);
         $success = array();
+        $errors = array();
         if($passForm->isSubmitted() && $passForm->isValid())
         {
             if($passForm->get('password')->getData() != null && $passForm->get('password')->getData() != "")
@@ -41,9 +42,13 @@ class UserAccountController extends AbstractController
             }
             array_push($success, "Votre mot de passe a été modifié avec succès !");
         }
+        elseif ($passForm->isSubmitted()) {
+            $errors = $passForm->getErrors()
+        }
         return $this->render('user/account.html.twig', [
             "passForm" => $passForm->createView(),
-            "success" => $success
+            "success" => $success,
+            "errors" => $errors
         ]);
     }
 }
