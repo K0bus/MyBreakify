@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\UserBreak;
 use App\Entity\UserRecovery;
-use App\Form\AdminUserBreakType;
+use App\Form\AdminUserRecoveryType;
 use App\Form\UserBreakType;
 use DateInterval;
 use DateTime;
