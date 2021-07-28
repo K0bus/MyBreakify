@@ -29,10 +29,12 @@ class AdminRecoveryController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $date = new DateTime();
+        $fixed_date = new DateTime();
 
         if($request->request->get('filter_date') != null)
         {
             $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
+            $fixed_date = $date;
         }  
 
         $recoveries = $this->getDoctrine()
@@ -106,7 +108,7 @@ class AdminRecoveryController extends AbstractController
         return $this->render('admin/recovery.html.twig',[
             "recoveries" => $recoveries,
             "users" => $users,
-            "date_filter" => $date
+            "date_filter" => $fixed_date
         ]);
     }
     /**
