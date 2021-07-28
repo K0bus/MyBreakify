@@ -43,6 +43,8 @@ class UserBreakController extends AbstractController
             foreach ($breaks as $key => $break) {
                 array_push($time_blacklist, $break->getTime()->format("H:i"));
             }
+        else
+            echo "Aucune pauses agent";
 
         // Fetch time param / break taken by all users
 
@@ -64,6 +66,8 @@ class UserBreakController extends AbstractController
                 $t = $param->getTime()->format("H:i");
                 $time_arr[$t]["allowed"] = $param->getBreak();
             }
+        else
+            echo "Aucun param";
         if(!is_null($breaks_glob))
             foreach ($breaks_glob as $key => $break) {
                 $t = $break->getTime()->format("H:i");
@@ -72,6 +76,8 @@ class UserBreakController extends AbstractController
                 else
                     $time_arr[$t]["taken"] = 1;
             }
+        else
+            echo "Aucune pauses globale";
         if(!is_null($time_arr))
             foreach ($time_arr as $key => $v) {
                 $now = new DateTime("now");
@@ -86,7 +92,8 @@ class UserBreakController extends AbstractController
                 if($v["taken"] < $v["allowed"])
                     $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
             }
-
+        else
+            echo "Aucune liste généré";
         $form = $this->createForm(UserBreakType::class, $userBreak, [
             'time_list' => $time
         ]);
