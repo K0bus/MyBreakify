@@ -60,7 +60,7 @@ class UserBreakController extends AbstractController
         $time_arr = array();
 
         foreach ($time_param as $key => $param) {
-            $t = $param->getTime()->format("H:i")
+            $t = $param->getTime()->format("H:i");
             $time_arr[$t]["allowed"] = $param->getBreak();
         }
         foreach ($breaks_glob as $key => $break) {
