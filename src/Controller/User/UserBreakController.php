@@ -104,7 +104,7 @@ class UserBreakController extends AbstractController
             unset($time_list[$userBreak->getTime()->format("H:i")]);
             array_push($breaks, $userBreak);
             $form = $this->createForm(UserBreakType::class, $userBreak, [
-                'time_list' => $time_blacklist
+                'time_list' => $time_list
             ]);
         }
 
