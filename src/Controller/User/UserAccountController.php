@@ -64,7 +64,7 @@ class UserAccountController extends AbstractController
 
         foreach ($form->all() as $child) {
             if(!$child->isValid())
-                $errors[$child->getName()] = $this->getErrorMessages($child);
+                $errors[$child->getName()] = $this->getErrorMessage($child);
         }
         
         return $errors;
