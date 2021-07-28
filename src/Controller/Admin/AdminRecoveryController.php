@@ -60,8 +60,10 @@ class AdminRecoveryController extends AbstractController
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
+                                  ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
-                                  ->setParameter('date', $tdate)
+                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("-30 days")))
+                                  ->setParameter('adate', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')))
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
                                   ->getResult();
@@ -81,8 +83,10 @@ class AdminRecoveryController extends AbstractController
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
+                                  ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
-                                  ->setParameter('date', $tdate)
+                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("-7 days")))
+                                  ->setParameter('adate', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')))
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
                                   ->getResult();
