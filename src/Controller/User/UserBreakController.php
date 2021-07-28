@@ -103,6 +103,8 @@ class UserBreakController extends AbstractController
                 'time_list' => $time
             ]);
         }
+        var_dump($time_arr);
+        
         return $this->render('user/break.html.twig', [
             "form" => $form->createView(),
             "breaks" => $breaks,
