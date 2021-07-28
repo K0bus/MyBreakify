@@ -40,7 +40,7 @@ class AdminRecoveryController extends AbstractController
         $recoveries = $this->getDoctrine()
         ->getRepository(UserRecovery::class)
         ->findBy([
-            "date" => $date,
+            "date" => DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')),
         ], [
             "time_to" => "ASC",
         ]);
@@ -62,7 +62,7 @@ class AdminRecoveryController extends AbstractController
                                   ->where('r.date >= :date')
                                   ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
-                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("-30 days")))
+                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("30 days")))
                                   ->setParameter('adate', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')))
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
@@ -85,7 +85,7 @@ class AdminRecoveryController extends AbstractController
                                   ->where('r.date >= :date')
                                   ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
-                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("-7 days")))
+                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("7 days")))
                                   ->setParameter('adate', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')))
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
