@@ -33,12 +33,5 @@
             M.toast({html: '{{ success_m }}'})
         {% endfor %}
     {% endif %}
-    {% if errors %}
-        {% for errors_f in errors %}
-            {% for errors_m in errors_f %}
-                M.toast({html: '{{ errors_m }}'})
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
 </script>
 {% endblock %}
