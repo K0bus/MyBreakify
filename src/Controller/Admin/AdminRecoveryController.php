@@ -36,6 +36,7 @@ class AdminRecoveryController extends AbstractController
             $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
             var_dump($request->request->get('filter_date'));
             var_dump($date);
+            echo "<br>";
             $fixed_date = $date;
         }  
 
@@ -106,7 +107,7 @@ class AdminRecoveryController extends AbstractController
             if(!array_key_exists($user["data"]->getId(), $users))
                 $users[$user["data"]->getId()] = $user;
         }
-
+        var_dump($date);
         return $this->render('admin/recovery.html.twig',[
             "recoveries" => $recoveries,
             "users" => $users,
