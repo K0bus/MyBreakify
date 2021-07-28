@@ -33,7 +33,7 @@ class AdminRecoveryController extends AbstractController
 
         if($request->request->get('filter_date') != null)
         {
-            $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
+            $date = DateTime::createFromFormat("d/M/y", $request->request->get('filter_date'));
             $fixed_date = $date;
         }  
 
