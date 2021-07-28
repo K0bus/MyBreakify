@@ -19,9 +19,7 @@
               <th>Temps voulus</th>
               <th>Commentaire</th>
               <th>Etat</th>
-              {% if is_granted('ROLE_ADMIN') %}
-                <th>Edition</th>
-              {% endif %}
+              <th>Edition</th>
               <!--<th>Docs</th>-->
           </tr>
         </thead>
@@ -43,57 +41,53 @@
                     {% elseif recovery.status == 3 %}
                         <td><i class="material-icons gray-text">close</i></td>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <td> <button data-target="modal-edit-{{ recovery.id }}" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-                    {% endif %}
+                    <td> <button data-target="modal-edit-{{ recovery.id }}" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
                     <!--<td>{% if recovery.status == 1 %}<a target="_blank" href="/admin/recovery/pdf/{{ recovery.id }}"><i class="material-icons">picture_as_pdf</i></a>{% endif %}</td>-->
                 </tr>
             {% endfor %}
         </tbody>
       </table>
     </div>
-    {% if is_granted('ROLE_ADMIN') %}
-        {% for recovery in recoveries %}
-            <div id="modal-edit-{{ recovery.id }}" class="modal">
-            <div class="modal-content">
-                <h4>Edition de la récupération</h4>
+    {% for recovery in recoveries %}
+        <div id="modal-edit-{{ recovery.id }}" class="modal">
+        <div class="modal-content">
+            <h4>Edition de la récupération</h4>
+            <div class="row">
+            <form method="POST" action="recovery/edit/{{ recovery.id }}">
                 <div class="row">
-                <form method="POST" action="recovery/edit/{{ recovery.id }}">
-                    <div class="row">
-                    <div class="input-field col s6">
-                        <input placeholder="Placeholder" id="name" disabled type="text" class="validate" value="{{recovery.userid.firstname}}, {{recovery.userid.lastname}}">
-                        <label for="name">NOM, Prénom</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <select name="status">
-                        <option value="0"{% if recovery.status == 0 %} selected{% endif %}>En attente</option>
-                        <option value="1"{% if recovery.status == 1 %} selected{% endif %}>Validée</option>
-                        <option value="2"{% if recovery.status == 2 %} selected{% endif %}>Refusée</option>
-                        <option value="3"{% if recovery.status == 3 %} selected{% endif %}>Annulée</option>
-                        </select>
-                        <label>Etat de la récupération</label>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="input-field col s6"><div class="prefix">De</div><input type="text" name="timeFrom" class="timepicker" value="{{recovery.timefrom|date("H:i")}}"></div>
-                    <div class="input-field col s6"><div class="prefix">à</div><input type="text" name="timeTo" class="timepicker" value="{{ recovery.timeto|date("H:i") }}"></div>
-                    </div>
-                    
-                    <!-- TODO: Add last editor
-                    <p class="center grey-text">
-                        Dernière édition effectuée par Firstname, LASTNAME à 15:30 le 01/01/2000
-                    </p>
-                    -->
-                    <button class="col s12 waves-effect waves-green btn-flat blue darken-1 white-text" type="submit">Sauvegarder</button>
-                </form>
+                <div class="input-field col s6">
+                    <input placeholder="Placeholder" id="name" disabled type="text" class="validate" value="{{recovery.userid.firstname}}, {{recovery.userid.lastname}}">
+                    <label for="name">NOM, Prénom</label>
                 </div>
+                <div class="input-field col s6">
+                    <select name="status">
+                    <option value="0"{% if recovery.status == 0 %} selected{% endif %}>En attente</option>
+                    <option value="1"{% if recovery.status == 1 %} selected{% endif %}>Validée</option>
+                    <option value="2"{% if recovery.status == 2 %} selected{% endif %}>Refusée</option>
+                    <option value="3"{% if recovery.status == 3 %} selected{% endif %}>Annulée</option>
+                    </select>
+                    <label>Etat de la récupération</label>
+                </div>
+                </div>
+                <div class="row">
+                <div class="input-field col s6"><div class="prefix">De</div><input type="text" name="timeFrom" class="timepicker" value="{{recovery.timefrom|date("H:i")}}"></div>
+                <div class="input-field col s6"><div class="prefix">à</div><input type="text" name="timeTo" class="timepicker" value="{{ recovery.timeto|date("H:i") }}"></div>
+                </div>
+                
+                <!-- TODO: Add last editor
+                 <p class="center grey-text">
+                    Dernière édition effectuée par Firstname, LASTNAME à 15:30 le 01/01/2000
+                </p>
+                 -->
+                <button class="col s12 waves-effect waves-green btn-flat blue darken-1 white-text" type="submit">Sauvegarder</button>
+            </form>
             </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
-            </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+        </div>
+        </div>
+    {% endfor %}
     {% for user in users %}
         <div id="modal-info-{{ user.data.id }}" class="modal">
         <div class="modal-content">
