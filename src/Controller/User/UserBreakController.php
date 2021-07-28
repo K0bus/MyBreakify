@@ -27,7 +27,7 @@ class UserBreakController extends AbstractController
         $startDate = new DateTime("09:00");
         $endDate = new DateTime("19:30");
         $minutes_to_add = 10;
-        $time = array();
+        $time_list = array();
         $time_blacklist = array();
         $temp = $startDate;
 
@@ -87,11 +87,11 @@ class UserBreakController extends AbstractController
                 $v["allowed"] = 0;
 
             if($v["taken"] < $v["allowed"])
-                $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
+                $time_list[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
         }
 
         $form = $this->createForm(UserBreakType::class, $userBreak, [
-            'time_list' => $time
+            'time_list' => $time_list
         ]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
@@ -103,10 +103,10 @@ class UserBreakController extends AbstractController
             
             $entityManager->persist($userBreak);
             $entityManager->flush();
-            unset($time[$userBreak->getTime()->format("H:i")]);
+            unset($time_list[$userBreak->getTime()->format("H:i")]);
             array_push($breaks, $userBreak);
             $form = $this->createForm(UserBreakType::class, $userBreak, [
-                'time_list' => $time
+                'time_list' => $time_list
             ]);
         }
 
