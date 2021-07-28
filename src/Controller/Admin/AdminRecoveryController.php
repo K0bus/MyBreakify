@@ -33,7 +33,6 @@ class AdminRecoveryController extends AbstractController
         if($request->request->get('filter_date') != null)
         {
             $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
-            $fixed_date = $date;
         }  
 
         $recoveries = $this->getDoctrine()
@@ -54,8 +53,6 @@ class AdminRecoveryController extends AbstractController
             $user["recovery_data"]["time_30d"] = 0;
 
             $qb = $entityManager->createQueryBuilder();
-            $tdate = $date;
-            $tdate->sub(date_interval_create_from_date_string("-30 days"));
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
@@ -76,8 +73,6 @@ class AdminRecoveryController extends AbstractController
             }
 
             $qb = $entityManager->createQueryBuilder();
-            $tdate = $date;
-            $tdate->sub(date_interval_create_from_date_string("-7 days"));
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
