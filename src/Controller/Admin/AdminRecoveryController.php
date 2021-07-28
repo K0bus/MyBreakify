@@ -66,6 +66,7 @@ class AdminRecoveryController extends AbstractController
 
             foreach ($user_recoveries as $k2 => $v2) {
                 $user["recovery_data"]["nb_30d"] = $user["recovery_data"]["nb_30d"] + 1;
+                echo $v2->getStatus()."<br>";
                 if($v2->getStatus() == 1){
                     $diff = ($v2->getTimeTo()->getTimestamp() - $v2->getTimeFrom()->getTimestamp())/60
                     echo $diff."<br>";
