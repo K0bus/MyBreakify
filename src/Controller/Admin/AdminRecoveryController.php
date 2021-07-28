@@ -54,7 +54,7 @@ class AdminRecoveryController extends AbstractController
 
             $qb = $entityManager->createQueryBuilder();
             $tdate = $date;
-            $tdate->sub("-30 days");
+            $tdate->sub(new DateInterval("-30 days"));
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
@@ -77,7 +77,7 @@ class AdminRecoveryController extends AbstractController
 
             $qb = $entityManager->createQueryBuilder();
             $tdate = $date;
-            $tdate->sub("-7 days");
+            $tdate->sub(new DateInterval("-7 days"));
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
