@@ -66,7 +66,7 @@ class AdminRecoveryController extends AbstractController
             foreach ($user_recoveries as $k2 => $v2) {
                 $user["recovery_data"]["nb_30d"] = $user["recovery_data"]["nb_30d"] + 1;
                 if($v2->getStatus() == 1)
-                    $user["recovery_data"]["time_30d"] = $user["recovery_data"]["time_30d"] + ($v2->getTimeFrom()->diff($v2->getTimeTo())->i);    
+                    $user["recovery_data"]["time_30d"] = $user["recovery_data"]["time_30d"] + ($v2->getTimeFrom()->diff($v2->getTimeTo())->i) + (($v2->getTimeFrom()->diff($v2->getTimeTo())->H)*60) + (($v2->getTimeFrom()->diff($v2->getTimeTo())->H)*60);
             }
 
             $qb = $entityManager->createQueryBuilder();
