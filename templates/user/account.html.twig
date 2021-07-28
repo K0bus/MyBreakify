@@ -32,7 +32,7 @@
     {% endif %}
     {% if errors %}
         {% for error_m in errors %}
-            M.toast({html: "{{ error_m }}", classes: 'rounded red accent-3 grey-text text-darken-4'});
+            M.toast({html: "{{ error_m }}", classes: 'rounded red accent-3 grey-text text-darken-4 white-text'});
         {% endfor %}
     {% endif %}
 </script>
