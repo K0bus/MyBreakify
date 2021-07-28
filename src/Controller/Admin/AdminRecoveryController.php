@@ -118,7 +118,7 @@ class AdminRecoveryController extends AbstractController
         return $this->render('admin/recovery.html.twig',[
             "recoveries" => $recoveries,
             "users" => $users,
-            "forms" => $form,
+            "form" => $form,
             "date_filter" => (clone $date)
         ]);
     }
