@@ -80,6 +80,12 @@ class UserBreakController extends AbstractController
                 $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
                 continue;
             }
+            // Set default data
+            if(!isset($v["taken"]))
+                $v["taken"] = 0;
+            if(!isset($v["allowed"]))
+                $v["allowed"] = 0;
+
             if($v["taken"] < $v["allowed"])
                 $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
         }
