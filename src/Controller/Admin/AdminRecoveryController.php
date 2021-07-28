@@ -71,7 +71,6 @@ class AdminRecoveryController extends AbstractController
                 echo $v2->getStatus()."<br>";
                 if($v2->getStatus() == 1){
                     $diff = ($v2->getTimeTo()->getTimestamp() - $v2->getTimeFrom()->getTimestamp())/60
-                    echo $diff."<br>";
                     $user["recovery_data"]["time_30d"] = $user["recovery_data"]["time_30d"] + $diff;
                 }                    
             }
@@ -95,7 +94,6 @@ class AdminRecoveryController extends AbstractController
                 if($v2->getStatus() == 1)
                 {
                     $diff = ($v2->getTimeTo()->getTimestamp() - $v2->getTimeFrom()->getTimestamp())/60
-                    echo $diff."<br>";
                     $user["recovery_data"]["time_7d"] = $user["recovery_data"]["time_7d"] + $diff; 
                 }
                        
