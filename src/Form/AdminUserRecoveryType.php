@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdminUserBreakType extends AbstractType
+class AdminUserRecoveryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
