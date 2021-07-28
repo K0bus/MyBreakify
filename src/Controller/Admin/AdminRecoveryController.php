@@ -58,8 +58,10 @@ class AdminRecoveryController extends AbstractController
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
+                                  ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
                                   ->setParameter('date', $tdate)
+                                  ->setParameter('adate', $date)
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
                                   ->getResult();
@@ -80,8 +82,10 @@ class AdminRecoveryController extends AbstractController
             $user_recoveries = $qb->select('r')
                                   ->from("App\Entity\UserRecovery", 'r')
                                   ->where('r.date >= :date')
+                                  ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
                                   ->setParameter('date', $tdate)
+                                  ->setParameter('adate', $date)
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
                                   ->getResult();
