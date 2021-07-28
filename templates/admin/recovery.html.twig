@@ -142,5 +142,9 @@
       $( "#filterInput" ).change(function() {
         $("#filterForm").submit()
       });
+      var $input = $('.datepicker').pickadate()
+      var picker = $input.pickadate('picker')
+
+      picker.set('select', [{{ date_filter|date("Y") }}, {{ date_filter|date("m") }}, {{ date_filter|date("d") }}])
   </script>
   {% endblock %}
