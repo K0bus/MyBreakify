@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Entity\UserBreak;
 use App\Entity\UserRecovery;
 use App\Form\AdminUserRecoveryType;
-use App\Form\UserBreakType;
 use DateInterval;
 use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;

@@ -40,7 +40,6 @@ class AdminUserRecoveryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UserRecovery::class,
-            'time_list' => array('-'),
             'user_list' => array('-'),
         ]);
     }
