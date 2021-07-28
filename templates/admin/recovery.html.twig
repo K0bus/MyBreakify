@@ -137,8 +137,7 @@
             selectYears: 2, // Creates a dropdown of 15 years to control year
             i18n: inter_fr,
         	format: 'dd/mm/yyyy',
-            defaultDate: new Date("{{ date_filter|date("Y-m-d") }}"),
-            setDefaultDate: true,
+            defaultDate: new Date("{{ date_filter|date("Y-m-d") }}")
         });
       });
       $( "#filterInput" ).change(function() {
