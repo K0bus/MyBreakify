@@ -97,6 +97,7 @@
             i18n: inter_fr,
         	format: 'dd/mm/yyyy',
         });
+        $('.datepicker').datepicker("setDate", new Date("{{ date_filter|date("Y-m-d") }}"));
       });
       $( "#filterInput" ).change(function() {
         $("#filterForm").submit()
