@@ -29,7 +29,6 @@ class AdminRecoveryController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $date = new DateTime();
-        $fixed_date = new DateTime();
 
         if($request->request->get('filter_date') != null)
         {
@@ -40,7 +39,7 @@ class AdminRecoveryController extends AbstractController
         $recoveries = $this->getDoctrine()
         ->getRepository(UserRecovery::class)
         ->findBy([
-            "date" => DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')),
+            "date" => (clone $date),
         ], [
             "time_to" => "ASC",
         ]);
@@ -62,8 +61,8 @@ class AdminRecoveryController extends AbstractController
                                   ->where('r.date >= :date')
                                   ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
-                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("30 days")))
-                                  ->setParameter('adate', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')))
+                                  ->setParameter('date', (clone $date)->sub(date_interval_create_from_date_string("30 days")))
+                                  ->setParameter('adate', (clone $date))
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
                                   ->getResult();
@@ -84,8 +83,8 @@ class AdminRecoveryController extends AbstractController
                                   ->where('r.date >= :date')
                                   ->andWhere('r.date <= :adate')
                                   ->andWhere('r.user_id = :user')
-                                  ->setParameter('date', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))->sub(date_interval_create_from_date_string("7 days")))
-                                  ->setParameter('adate', DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date')))
+                                  ->setParameter('date', (clone $date)->sub(date_interval_create_from_date_string("7 days")))
+                                  ->setParameter('adate', (clone $date))
                                   ->setParameter('user', $user["data"])
                                   ->getQuery()
                                   ->getResult();
@@ -106,7 +105,7 @@ class AdminRecoveryController extends AbstractController
         return $this->render('admin/recovery.html.twig',[
             "recoveries" => $recoveries,
             "users" => $users,
-            "date_filter" => DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'))
+            "date_filter" => (clone $date)
         ]);
     }
     /**
