@@ -43,7 +43,7 @@ class AdminRecoveryController extends AbstractController
             "time_to" => "ASC",
         ]);
         $users = array();
-        foreach ($recoveries as $key => $value) {m
+        foreach ($recoveries as $key => $value) {
             $user = array();
             $user["data"] = $value->getUserId();
 
