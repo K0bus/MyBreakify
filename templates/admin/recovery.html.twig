@@ -121,6 +121,7 @@
           weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
           weekdaysLetter: [ 'D', 'L', 'Ma', 'Me', 'J', 'V', 'S' ],
           today: 'Aujourd\'hui',
+          defaultDate: $(".datepicker").value
           clear: 'Réinitialiser',
           close: 'Fermer',
           cancel: 'Annuler',
@@ -142,9 +143,5 @@
       $( "#filterInput" ).change(function() {
         $("#filterForm").submit()
       });
-      var $input = $('.datepicker').pickadate()
-      var picker = $input.pickadate('picker')
-
-      picker.set('select', [{{ date_filter|date("Y") }}, {{ date_filter|date("m") }}, {{ date_filter|date("d") }}])
   </script>
   {% endblock %}
