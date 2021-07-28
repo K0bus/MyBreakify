@@ -53,7 +53,7 @@ class UserBreakController extends AbstractController
 
         $time_param = $this->getDoctrine()
         ->getRepository(TimeParam::class)
-        ->findOneBy([
+        ->findBy([
             "date" => new DateTime(),
         ]);
 
