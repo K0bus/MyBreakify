@@ -8,7 +8,9 @@
     <form method="POST" id="filterForm">
       <input type="text" class="datepicker" name="filter_date" value="{{ date_filter|date("d/m/Y") }}" id="filterInput">
     </form>
-    <a class="waves-effect waves-light btn modal-trigger" style="width:100%; marin-bottom:20px;" href="#modal1">Ajouter une pause</a>
+    {% if is_granted('ROLE_ADMIN') %}
+      <a class="waves-effect waves-light btn modal-trigger" style="width:100%; marin-bottom:20px;" href="#modal1">Ajouter une pause</a>
+    {% endif %}
     <div class="row">
         <div class="col m6">
             <ul class="collapsible">
@@ -48,18 +50,19 @@
         </div>
     </div>
 
+  {% if is_granted('ROLE_ADMIN') %}
     <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Ajouter une pause</h4>
-      {{ form_start(form) }}
-      {{ form_row(form.time) }}
-      {{ form_row(form.user_id) }}
-      <button class="waves-effect waves-light btn" type="submit">valider</button>
-      {{ form_end(form) }}
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Ajouter une pause</h4>
+        {{ form_start(form) }}
+        {{ form_row(form.time) }}
+        {{ form_row(form.user_id) }}
+        <button class="waves-effect waves-light btn" type="submit">valider</button>
+        {{ form_end(form) }}
+      </div>
     </div>
-  </div>
-          
+  {% endif %}
 </div>
 {% endblock %}
 
