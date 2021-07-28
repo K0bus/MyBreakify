@@ -97,10 +97,10 @@ class AdminRecoveryController extends AbstractController
                 $users[$user["data"]->getId()] = $user;
         }
         $userRecovery = new UserRecovery();
-        $users = $this->getDoctrine()->getRepository(User::class)
+        $users_db = $this->getDoctrine()->getRepository(User::class)
             ->findBy(array(), array("firstname" => "ASC"));
         $user_list = array();
-        foreach ($users as $key => $user) {
+        foreach ($users_db as $key => $user) {
             $user_list[$user->getFirstname() . ", " . $user->getLastname()] = $user;
         }
         $form = $this->createForm(AdminUserRecoveryType::class, $userRecovery, [
