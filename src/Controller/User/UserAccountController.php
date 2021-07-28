@@ -45,6 +45,7 @@ class UserAccountController extends AbstractController
         elseif ($passForm->isSubmitted()) {
             $errors = $this->getErrorMessage($passForm);
         }
+        $passForm->clearErrors(true);
         return $this->render('user/account.html.twig', [
             "passForm" => $passForm->createView(),
             "success" => $success,
