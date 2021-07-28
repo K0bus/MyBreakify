@@ -66,9 +66,10 @@ class AdminRecoveryController extends AbstractController
 
             foreach ($user_recoveries as $k2 => $v2) {
                 $user["recovery_data"]["nb_30d"] = $user["recovery_data"]["nb_30d"] + 1;
-                var_dump($v2->getTimeFrom()->diff($v2->getTimeTo()));
-                if($v2->getStatus() == 1)
-                    $user["recovery_data"]["time_30d"] = $user["recovery_data"]["time_30d"] + ($v2->getTimeFrom()->diff($v2->getTimeTo())->i) + (($v2->getTimeFrom()->diff($v2->getTimeTo())->H)*60) + (($v2->getTimeFrom()->diff($v2->getTimeTo())->H)*60);
+                if($v2->getStatus() == 1){
+                    $diff = ($v2->getTimeTo()->getTimestamp() - $v2->getTimeFrom()->getTimestamp())/60
+                    $user["recovery_data"]["time_30d"] = $user["recovery_data"]["time_30d"] + $diff;
+                }                    
             }
 
             $qb = $entityManager->createQueryBuilder();
@@ -86,7 +87,11 @@ class AdminRecoveryController extends AbstractController
             foreach ($user_recoveries as $k2 => $v2) {
                 $user["recovery_data"]["nb_7d"] = $user["recovery_data"]["nb_7d"] + 1;
                 if($v2->getStatus() == 1)
-                    $user["recovery_data"]["time_7d"] = $user["recovery_data"]["time_7d"] + ($v2->getTimeFrom()->diff($v2->getTimeTo())->i);    
+                {
+                    $diff = ($v2->getTimeTo()->getTimestamp() - $v2->getTimeFrom()->getTimestamp())/60
+                    $user["recovery_data"]["time_7d"] = $user["recovery_data"]["time_7d"] + $diff; 
+                }
+                       
             }
 
             if(!array_key_exists($user["data"]->getId(), $users))
