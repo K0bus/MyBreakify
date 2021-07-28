@@ -6,7 +6,7 @@
 <div class="container">
     <h2>Gestion des récupérations</h2>
         <form method="POST" id="filterForm">
-            <input type="text" class="datepicker" name="filter_date" value="{{ date_filter|date("d/m/Y") }}" id="filterInput">
+            <input type="text" class="datepicker" name="filter_date" value="{{ date_filter.date }}" id="filterInput">
         </form>
 
       <table class="centered">
