@@ -34,8 +34,10 @@
         {% endfor %}
     {% endif %}
     {% if errors %}
-        {% for error_m in errors %}
-            M.toast({html: '{{ error_m }}'})
+        {% for errors_f in errors %}
+            {% for errors_m in errors_f %}
+                M.toast({html: '{{ errors_m }}'})
+            {% endfor %}
         {% endfor %}
     {% endif %}
 </script>
