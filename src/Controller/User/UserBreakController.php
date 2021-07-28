@@ -98,7 +98,7 @@ class UserBreakController extends AbstractController
             $entityManager->persist($userBreak);
             $entityManager->flush();
             unset($time[$userBreak->getTime()->format("H:i")]);
-            array_push($breaks, $userBreak)
+            array_push($breaks, $userBreak);
             $form = $this->createForm(UserBreakType::class, $userBreak, [
                 'time_list' => $time
             ]);
