@@ -9,7 +9,8 @@
             <div class="row">
                 {{ form_start(passForm) }}
                     <div class="row">
-                        {{ form_row(passForm.password) }}
+                        {{ form_row(passForm.password.first) }}
+                        {{ form_row(passForm.password.second) }}
                     </div>
                     <div class="row">
                         <div class="col m12">
