@@ -110,7 +110,8 @@ class AdminRecoveryController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $userRecovery = $form->getData();
-            $userRecovery->setRequestedAt(new DateTime());
+            $recovery->setStatus(0);
+            $recovery->setRequestAt(new DateTime());
             
             $entityManager->persist($userRecovery);
             $entityManager->flush();
