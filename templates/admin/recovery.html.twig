@@ -136,8 +136,8 @@
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 2, // Creates a dropdown of 15 years to control year
             i18n: inter_fr,
-        	format: new Date("{{ date_filter|date("d/m/Y") }}"),
-            defaultDate: $(".datepicker").value,
+        	format: 'dd/mm/yyyy',
+            defaultDate: new Date("{{ date_filter|date("d/m/Y") }}"),
             setDefaultDate: true,
         });
       });
