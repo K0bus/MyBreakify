@@ -56,15 +56,14 @@ class UserAccountController extends AbstractController
         $errors = array();
 
         foreach ($form->getErrors() as $key => $error) {
-            if($form->isRoot())
-                $errors["#"][] = $error->getMessage();
-            else
-                $errors[] = $error->getMessage();
+            array_push($error->getMessage());
         }
 
         foreach ($form->all() as $child) {
             if(!$child->isValid())
-                $errors[$child->getName()] = $this->getErrorMessage($child);
+                foreach ($this->getErrorMessage($child) as $key => $error) {
+                    array_push($error);
+                }
         }
         
         return $errors;
