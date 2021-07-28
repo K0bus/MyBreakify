@@ -43,7 +43,7 @@ class AdminRecoveryController extends AbstractController
             "time_to" => "ASC",
         ]);
         $users = array();
-        foreach ($recoveries as $key => $value) {
+        foreach ($recoveries as $key => $value) {m
             $user = array();
             $user["data"] = $value->getUserId();
 
@@ -97,9 +97,29 @@ class AdminRecoveryController extends AbstractController
             if(!array_key_exists($user["data"]->getId(), $users))
                 $users[$user["data"]->getId()] = $user;
         }
+        $userRecovery = new UserRecovery();
+        $users = $this->getDoctrine()->getRepository(User::class)
+            ->findBy(array(), array("firstname" => "ASC"));
+        $user_list = array();
+        foreach ($users as $key => $user) {
+            $user_list[$user->getFirstname() . ", " . $user->getLastname()] = $user;
+        }
+        $form = $this->createForm(AdminUserRecoveryType::class, $userRecovery, [
+            'user_list' => $user_list
+        ]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $userRecovery = $form->getData();
+            $userRecovery->setRequestedAt(new DateTime());
+            
+            $entityManager->persist($userRecovery);
+            $entityManager->flush();
+        }
         return $this->render('admin/recovery.html.twig',[
             "recoveries" => $recoveries,
             "users" => $users,
+            "forms" => $form,
             "date_filter" => (clone $date)
         ]);
     }

@@ -8,7 +8,7 @@
         <form method="POST" id="filterForm">
             <input type="text" class="datepicker" name="filter_date" value="{{ date_filter|date("d/m/Y") }}" id="filterInput">
         </form>
-
+    <a class="waves-effect waves-light btn modal-trigger" style="width:100%; marin-bottom:20px;" href="#modal1">Ajouter une demande de récupération</a>
       <table class="centered">
         <thead>
           <tr>
@@ -103,6 +103,23 @@
         </div>
         </div>
     {% endfor %}
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+        <h4>Ajouter une récupération</h4>
+        {{ form_start(form) }}
+        {{ form_row(form.user_id) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.time_from) }}
+        {{ form_row(form.time_to) }}
+        {{ form_row(form.comment) }}
+        <button class="waves-effect waves-light btn" type="submit">valider</button>
+        {{ form_end(form) }}
+        </div>
+        <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -139,6 +156,10 @@
         	format: 'dd/mm/yyyy'
         });
         $('.datepicker').datepicker("setDate", new Date("{{ date_filter|date("Y-m-d") }}"));
+        $('.timepicker').timepicker({
+          i18n: inter_fr,
+          twelveHour: false,
+        });
       });
       $( "#filterInput" ).change(function() {
         $("#filterForm").submit()
