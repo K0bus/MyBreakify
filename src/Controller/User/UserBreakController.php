@@ -39,9 +39,10 @@ class UserBreakController extends AbstractController
                 "user_id" => $user,
                 "date" => new DateTime(),
             ]);
-        foreach ($breaks as $key => $break) {
-            array_push($time_blacklist, $break->getTime()->format("H:i"));
-        }
+        if(!is_null($breaks))
+            foreach ($breaks as $key => $break) {
+                array_push($time_blacklist, $break->getTime()->format("H:i"));
+            }
 
         // Fetch time param / break taken by all users
 
@@ -58,31 +59,33 @@ class UserBreakController extends AbstractController
         ]);
 
         $time_arr = array();
-
-        foreach ($time_param as $key => $param) {
-            $t = $param->getTime()->format("H:i");
-            $time_arr[$t]["allowed"] = $param->getBreak();
-        }
-        foreach ($breaks_glob as $key => $break) {
-            $t = $break->getTime()->format("H:i");
-            if(isset($time_arr[$t]["taken"]))
-                $time_arr[$t]["taken"]++;
-            else
-                $time_arr[$t]["taken"] = 1;
-        }
-        foreach ($time_arr as $key => $v) {
-            $now = new DateTime("now");
-            $now->sub(new DateInterval('PT5M'));
-            $time = new DateTime($key);
-
-            if($now > $time || in_array($time->format("H:i"), $time_blacklist))
-            {
-                $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
-                continue;
+        if(!is_null($time_param))
+            foreach ($time_param as $key => $param) {
+                $t = $param->getTime()->format("H:i");
+                $time_arr[$t]["allowed"] = $param->getBreak();
             }
-            if($v["taken"] < $v["allowed"])
-                $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
-        }
+        if(!is_null($breaks_glob))
+            foreach ($breaks_glob as $key => $break) {
+                $t = $break->getTime()->format("H:i");
+                if(isset($time_arr[$t]["taken"]))
+                    $time_arr[$t]["taken"]++;
+                else
+                    $time_arr[$t]["taken"] = 1;
+            }
+        if(!is_null($time_arr))
+            foreach ($time_arr as $key => $v) {
+                $now = new DateTime("now");
+                $now->sub(new DateInterval('PT5M'));
+                $time = new DateTime($key);
+
+                if($now > $time || in_array($time->format("H:i"), $time_blacklist))
+                {
+                    $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+                    continue;
+                }
+                if($v["taken"] < $v["allowed"])
+                    $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
+            }
 
         $form = $this->createForm(UserBreakType::class, $userBreak, [
             'time_list' => $time
