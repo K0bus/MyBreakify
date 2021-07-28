@@ -47,6 +47,7 @@ class UserAccountController extends AbstractController
                 array_push($errors, $error->getMessage());
             }
         }
+        var_dump($errors);
         return $this->render('user/account.html.twig', [
             "passForm" => $passForm->createView(),
             "success" => $success,
