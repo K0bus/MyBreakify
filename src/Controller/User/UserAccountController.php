@@ -55,7 +55,7 @@ class UserAccountController extends AbstractController
     private function getErrorMessage(\Symfony\Component\Form\Form $form) {
         $errors = array();
 
-        foreach ($form-getErrors() as $key => $error) {
+        foreach ($form->getErrors() as $key => $error) {
             if($form->isRoot())
                 $errors["#"][] = $error->getMessage();
             else
