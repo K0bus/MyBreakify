@@ -74,9 +74,6 @@ class UserBreakController extends AbstractController
             $now = new DateTime("now");
             $now->sub(new DateInterval('PT5M'));
             $time = new DateTime($key);
-            var_dump($now);
-            echo "<br>";
-            var_dump($time);
             if($time < $now || in_array($time->format("H:i"), $time_blacklist))
             {
                 echo $time."<br>";
