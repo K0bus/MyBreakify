@@ -43,7 +43,7 @@ class UserAccountController extends AbstractController
             array_push($success, "Votre mot de passe a été modifié avec succès !");
         }
         elseif ($passForm->isSubmitted()) {
-            $errors = getErrorMessage($passForm);
+            $errors = $this->getErrorMessage($passForm);
         }
         return $this->render('user/account.html.twig', [
             "passForm" => $passForm->createView(),
