@@ -46,6 +46,7 @@ class AdminBreakController extends AbstractController
         ]);
 
         $time_arr = array();
+        $time_list = array();
 
         foreach ($time_param as $key => $param) {
             $t = $param->getTime()->format("H:i");
@@ -53,6 +54,7 @@ class AdminBreakController extends AbstractController
             $time_arr[$t]["allowed_adm"] = $param->getBreakAdm();
             $time_arr[$t]["time"] = $t;
             $time_arr[$t]["color"] = "";
+            array_push($time_list, $t);
         }
         foreach ($breaks_glob as $key => $break) {
             $t = $break->getTime()->format("H:i");
@@ -85,7 +87,7 @@ class AdminBreakController extends AbstractController
             $user_list[$user->getFirstname() . ", " . $user->getLastname()] = $user;
         }
         $form = $this->createForm(AdminUserBreakType::class, $userBreak, [
-            'time_list' => $time,
+            'time_list' => $time_list,
             'user_list' => $user_list
         ]);
         $form->handleRequest($request);
