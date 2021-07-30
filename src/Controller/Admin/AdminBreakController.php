@@ -61,21 +61,15 @@ class AdminBreakController extends AbstractController
             $time_arr[$t]["allowed_adm"] = $param->getBreakAdm();
             $time_arr[$t]["time"] = $t;
             $time_arr[$t]["color"] = "";
+            $time_arr[$t]["taken"] = 0;
+            $time_arr[$t]["breaks"] = array();
             array_push($time_list, $t);
         }
         foreach ($breaks_glob as $key => $break) {
             $t = $break->getTime()->format("H:i");
-            if(isset($time_arr[$t]["taken"]))
-                $time_arr[$t]["taken"]++;
-            else
-                $time_arr[$t]["taken"] = 1;
-            if(isset($time_arr[$t]["breaks"]))
-                array_push($time_arr[$t]["breaks"], $break);
-            else
-            {
-                $time_arr[$t]["breaks"] = array();
-                array_push($time_arr[$t]["breaks"], $break);
-            }
+            $time_arr[$t]["taken"]++;
+            array_push($time_arr[$t]["breaks"], $break);
+            
             if($time_arr[$t]["taken"] >= $time_arr[$t]["allowed"])
             {
                 if($time_arr[$t]["taken"] >= ($time_arr[$t]["allowed"]+$time_arr[$t]["allowed_adm"]))
