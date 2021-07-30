@@ -51,6 +51,7 @@ class UserRecoveryController extends AbstractController
             $entityManager->flush();
             array_push($success, "Demande de récupération demandé");
             $recovery = new UserRecovery();
+            $form = $this->createForm(RecoveryType::class, $recovery);
         }
 
         $recoveries = $this->getDoctrine()
