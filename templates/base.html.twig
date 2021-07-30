@@ -112,6 +112,18 @@
         $('.tooltipped').tooltip();
       });
     </script>
+    <script>
+      {% if success %}
+          {% for success_m in success %}
+              M.toast({html: "{{ success_m }}", classes: 'rounded lime accent-3 grey-text text-darken-4'});
+          {% endfor %}
+      {% endif %}
+      {% if errors %}
+          {% for error_m in errors %}
+              M.toast({html: "{{ error_m }}", classes: 'rounded red accent-3 white-text'});
+          {% endfor %}
+      {% endif %}
+    </script>
     {% block js %}{% endblock %}
   </body>
 </html>
