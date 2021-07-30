@@ -23,7 +23,7 @@
             <script>
                 {% if error is defined %}
                     {% if error %}
-                      M.toast({html: "{{ error.messageKey|trans(error.messageData, 'security') }}", classes: 'rounded lime accent-3 grey-text text-darken-4'});
+                      M.toast({html: "{{ error.messageKey|trans(error.messageData, 'security') }}", classes: 'rounded red accent-3 white-text'});
                     {% endif %}
                 {% endif %}
                 {% if success is defined %}
