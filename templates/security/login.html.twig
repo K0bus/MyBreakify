@@ -10,10 +10,6 @@
         </div>
     </div>
     <div class="row">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
         {% if app.user %}
             <div class="card-panel red lighten-4">
                 <span>Vous etes déjà connecter en tans que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnectez vous</a></span>
