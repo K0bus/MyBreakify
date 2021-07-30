@@ -27,17 +27,55 @@ class AdminBreakController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $userBreak = new UserBreak();
-        $startDate = new DateTime("09:00");
-        $endDate = new DateTime("19:30");
-        $minutes_to_add = 10;
-        $time = array();
-        $temp = $startDate;
 
         $errors = array();
-        while ($temp <= $endDate)
-        {
-            $time[$temp->format("H:i")] = new DateTime($temp->format("H:i"));
-            $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+
+
+        // Fetch time param / break taken by all users
+
+        $breaks_glob = $this->getDoctrine()
+        ->getRepository(UserBreak::class)
+        ->findBy([
+            "date" => new DateTime(),
+        ]);
+
+        $time_param = $this->getDoctrine()
+        ->getRepository(TimeParam::class)
+        ->findBy([
+            "date" => new DateTime(),
+        ]);
+
+        $time_arr = array();
+
+        foreach ($time_param as $key => $param) {
+            $t = $param->getTime()->format("H:i");
+            $time_arr[$t]["allowed"] = $param->getBreak();
+            $time_arr[$t]["allowed_adm"] = $param->getBreakAdm();
+            $time_arr[$t]["time"] = $t;
+            $time_arr[$t]["color"] = "";
+        }
+        foreach ($breaks_glob as $key => $break) {
+            $t = $break->getTime()->format("H:i");
+            if(isset($time_arr[$t]["taken"]))
+                $time_arr[$t]["taken"]++;
+            else
+                $time_arr[$t]["taken"] = 1;
+            if(isset($time_arr[$t]["breaks"]))
+                array_push($time_arr[$t]["breaks"], $break);
+            else
+            {
+                $time_arr[$t]["breaks"] = array();
+                array_push($time_arr[$t]["breaks"], $break);
+            }
+            if($time_arr[$t]["taken"] >= $time_arr[$t]["allowed"])
+            {
+                if($time_arr[$t]["taken"] >= ($time_arr[$t]["allowed"]+$time_arr[$t]["allowed_adm"]))
+                {
+                    $time_arr[$t]["color"] = "orange";
+                }
+                else
+                    $time_arr[$t]["color"] = "red lighten-3";
+            }
         }
 
         $users = $this->getDoctrine()->getRepository(User::class)
@@ -60,70 +98,9 @@ class AdminBreakController extends AbstractController
             $entityManager->persist($userBreak);
             $entityManager->flush();
         }
-        $startDate = new DateTime("09:00");
-        $endDate = new DateTime("19:30");
-        $minutes_to_add = 10;
-        $time_step = array();
-        $temp = $startDate;
 
-        $errors = array();
-        
-        $date = new DateTime();
-
-        if($request->request->get('filter_date') != null)
-        {
-            $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
-        }  
-
-        while ($temp <= $endDate)
-        {
-            $breaks = $this->getDoctrine()
-            ->getRepository(UserBreak::class)
-            ->findBy([
-                "time" => $temp,
-                "date" => $date,
-            ]);
-
-            $time_param = $this->getDoctrine()
-            ->getRepository(TimeParam::class)
-            ->findOneBy([
-                "time" => $temp,
-                "date" => $date,
-            ]);
-
-            $data = array();
-            $data["time"] = $temp->format("H:i");
-            $data["breaks"] = $breaks;
-            $data["count"] = count($breaks);
-            $data["max"] = -1;
-            $data["adm_max"] = 0;
-            if($time_param != null)
-            {
-                $data["max"] = $time_param->getBreak();
-                $data["adm_max"] = $time_param->getBreakAdm();
-            }
-                
-            if($data["max"] > 0)
-            {
-                $v = $data["count"] / $data["max"] * 100;
-            }
-            else
-            {
-                $v = 100;
-            }
-            if($data["count"]<$data["max"])
-                $data["color"] = "";
-            elseif($data["count"]<($data["adm_max"] + $data["max"]))
-                $data["color"] = "orange";
-            else
-                $data["color"] = "red lighten-3";
-            
-            array_push($time_step, $data);
-
-            $temp->add(new DateInterval('PT' . $minutes_to_add . 'M'));
-        }
         return $this->render('admin/break.html.twig', [
-            "time_steps" => $time_step,
+            "time_steps" => $time_arr,
             "form" => $form->createView(),
             "date_filter" => $date
         ]);
