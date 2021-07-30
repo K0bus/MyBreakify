@@ -49,7 +49,7 @@ class UserRecoveryController extends AbstractController
             }
             $entityManager->persist($recovery);
             $entityManager->flush();
-            array_push($success, "Demande de récupération demandé")
+            array_push($success, "Demande de récupération demandé");
         }
 
         $recoveries = $this->getDoctrine()

@@ -107,7 +107,7 @@ class UserBreakController extends AbstractController
             $form = $this->createForm(UserBreakType::class, $userBreak, [
                 'time_list' => $time_list
             ]);
-            array_push($success, "Pause planifié à ".$userBreak->getTime()->format("H:i"))
+            array_push($success, "Pause planifié à ".$userBreak->getTime()->format("H:i"));
         }
 
         return $this->render('user/break.html.twig', [
