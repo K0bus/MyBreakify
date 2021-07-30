@@ -23,15 +23,22 @@ class AdminBreakController extends AbstractController
     public function break(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_N1');
-
         $entityManager = $this->getDoctrine()->getManager();
 
-        $userBreak = new UserBreak();
-
+        /*
+         *   Fetch Date filter
+         */
+        $date = new DateTime();
+        if($request->request->get('filter_date') != null)
+        {
+            $date = DateTime::createFromFormat("d/m/Y", $request->request->get('filter_date'));
+        }
         $errors = array();
 
 
-        // Fetch time param / break taken by all users
+        /*
+         *   Fetch Time Param data
+         */
 
         $breaks_glob = $this->getDoctrine()
         ->getRepository(UserBreak::class)
@@ -80,6 +87,10 @@ class AdminBreakController extends AbstractController
             }
         }
 
+        /*
+         *   Admin break form.
+         */
+        $userBreak = new UserBreak();
         $users = $this->getDoctrine()->getRepository(User::class)
             ->findBy(array(), array("firstname" => "ASC"));
         $user_list = array();
@@ -100,6 +111,10 @@ class AdminBreakController extends AbstractController
             $entityManager->persist($userBreak);
             $entityManager->flush();
         }
+
+        /*
+         *   Return page
+         */
 
         return $this->render('admin/break.html.twig', [
             "time_steps" => $time_arr,
