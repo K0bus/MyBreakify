@@ -113,6 +113,11 @@
       });
     </script>
             <script>
+                {% if error is defined %}
+                    {% if error %}
+                      M.toast({html: "{{ error }}", classes: 'rounded lime accent-3 grey-text text-darken-4'});
+                    {% endif %}
+                {% endif %}
                 {% if success is defined %}
                     {% if success %}
                         {% for success_m in success %}
