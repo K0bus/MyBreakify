@@ -57,13 +57,15 @@ class AdminBreakController extends AbstractController
 
         foreach ($time_param as $key => $param) {
             $t = $param->getTime()->format("H:i");
+            // Set time Array data
             $time_arr[$t]["allowed"] = $param->getBreak();
             $time_arr[$t]["allowed_adm"] = $param->getBreakAdm();
             $time_arr[$t]["time"] = $t;
             $time_arr[$t]["color"] = "";
             $time_arr[$t]["taken"] = 0;
             $time_arr[$t]["breaks"] = array();
-            array_push($time_list, $t);
+            // Set TimeList data
+            $time_list[$t] = new DateTime($t);
         }
         foreach ($breaks_glob as $key => $break) {
             $t = $break->getTime()->format("H:i");
