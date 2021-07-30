@@ -32,6 +32,7 @@ class UserBreakController extends AbstractController
         $temp = $startDate;
 
         $errors = array();
+        $success = array();
 
         $breaks = $this->getDoctrine()
             ->getRepository(UserBreak::class)
@@ -106,12 +107,14 @@ class UserBreakController extends AbstractController
             $form = $this->createForm(UserBreakType::class, $userBreak, [
                 'time_list' => $time_list
             ]);
+            array_push($success, "Pause planifié à ".$userBreak->getTime()->format("H:i"))
         }
 
         return $this->render('user/break.html.twig', [
             "form" => $form->createView(),
             "breaks" => $breaks,
             "errors" => $errors,
+            "success" => $success,
             "test_data" => $time_blacklist
         ]);
     }

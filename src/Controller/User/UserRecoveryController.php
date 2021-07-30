@@ -30,6 +30,7 @@ class UserRecoveryController extends AbstractController
         $form = $this->createForm(RecoveryType::class, $recovery);
 
         $errors = array();
+        $success = array();
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
@@ -48,6 +49,7 @@ class UserRecoveryController extends AbstractController
             }
             $entityManager->persist($recovery);
             $entityManager->flush();
+            array_push($success, "Demande de récupération demandé")
         }
 
         $recoveries = $this->getDoctrine()
@@ -58,6 +60,7 @@ class UserRecoveryController extends AbstractController
 
         return $this->render('user/recovery.html.twig', [
             "form" => $form->createView(),
+            "success" => $success,
             "recoveries" => $recoveries
         ]);
     }
