@@ -106,6 +106,23 @@ class AdminBreakController extends AbstractController
             
             $entityManager->persist($userBreak);
             $entityManager->flush();
+
+            // Add new break
+
+            $t = $userBreak->getTime()->format("H:i");
+            $time_arr[$t]["taken"]++;
+            array_push($time_arr[$t]["breaks"], $userBreak);
+            
+            if($time_arr[$t]["taken"] >= $time_arr[$t]["allowed"])
+            {
+                if($time_arr[$t]["taken"] >= ($time_arr[$t]["allowed"]+$time_arr[$t]["allowed_adm"]))
+                {
+                    $time_arr[$t]["color"] = "orange";
+                }
+                else
+                    $time_arr[$t]["color"] = "red lighten-3";
+            }
+
         }
 
         /*
